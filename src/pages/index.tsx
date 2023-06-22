@@ -1,11 +1,11 @@
 import Head from "next/head"
 import { Jost } from "next/font/google"
 import { globalStyles } from "@/styles/stitches.config"
-import SuggestionsCounter from "@/components/home/SuggestionsCounter"
 import Suggestions from "@/components/home/Suggestions"
 import SideFilters from "@/components/home/SideFilters"
 import { Fragment } from "react"
 import { HomeContainer } from "./style"
+import SuggestionsBar from "@/components/home/SuggestionsBar"
 
 const jost = Jost({
   weight: ["400", "700"],
@@ -33,7 +33,7 @@ export default function Home() {
             maxWidth: "1200px",
           }}
         >
-          <SuggestionsCounter />
+          <SuggestionsBar />
           <Suggestions />
 
           <Suggestions />
