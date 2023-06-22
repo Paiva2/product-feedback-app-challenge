@@ -58,5 +58,6 @@ export const globalStyles = globalCss({
     boxSizing: "border-box",
     backgroundColor: "#f7f8fd",
     minHeight: "100vh",
+    fontFamily: "Jost, sans-serif",
   },
 })

@@ -1,18 +1,9 @@
 import Head from "next/head"
-import { Jost } from "next/font/google"
-import { globalStyles } from "@/styles/stitches.config"
 import Suggestions from "@/components/home/Suggestions"
 import SideFilters from "@/components/home/SideFilters"
 import { Fragment } from "react"
 import { HomeContainer } from "./style"
 import SuggestionsBar from "@/components/home/SuggestionsBar"
-
-const jost = Jost({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-})
-
-globalStyles()
 
 export default function Home() {
   return (
@@ -22,14 +13,14 @@ export default function Home() {
         <meta name="description" content="Product Page App" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <HomeContainer className={jost.className}>
+      <HomeContainer>
         <SideFilters />
         <div
           style={{
             width: "50%",
             display: "flex",
             flexDirection: "column",
-            gap: "15px",
+            gap: ".9375rem",
             maxWidth: "1200px",
           }}
         >
