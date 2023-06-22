@@ -30,6 +30,7 @@ export default function Home() {
             display: "flex",
             flexDirection: "column",
             gap: "15px",
+            maxWidth: "1200px",
           }}
         >
           <SuggestionsCounter />
