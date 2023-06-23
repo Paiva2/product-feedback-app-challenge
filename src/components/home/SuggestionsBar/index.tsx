@@ -11,9 +11,13 @@ import {
   SuggestionsController,
   Wrapper,
 } from "./styles"
+import { useRouter } from "next/router"
+import CheckedIcon from "@/components/icons/CheckedIcon"
 
 const SuggestionsBar = () => {
   const [openSortBy, setOpenSortBy] = useState(false)
+
+  const route = useRouter()
 
   return (
     <CounterContainer>
@@ -43,14 +47,7 @@ const SuggestionsBar = () => {
                 <li>
                   Most Upvotes{" "}
                   <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="11">
-                      <path
-                        fill="none"
-                        stroke="#AD1FEA"
-                        stroke-width="2"
-                        d="M1 5.233L4.522 9 12 1"
-                      />
-                    </svg>
+                    <CheckedIcon />
                   </span>
                 </li>
                 <li>Least Upvotes</li>
@@ -62,7 +59,7 @@ const SuggestionsBar = () => {
         </SuggestionsController>
 
         <NewFeedBackButtonWrapper>
-          <button>+ Add Feedback</button>
+          <button onClick={() => route.push("/new-feedback")}>+ Add Feedback</button>
         </NewFeedBackButtonWrapper>
       </Wrapper>
     </CounterContainer>
