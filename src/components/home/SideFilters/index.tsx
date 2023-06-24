@@ -1,5 +1,6 @@
-import React from "react"
+import React, { useState } from "react"
 import {
+  FilterButton,
   Filters,
   FiltersWrapper,
   Names,
@@ -13,6 +14,9 @@ import {
 } from "./styles"
 
 const SideFilters = () => {
+  const [selectedFilter, setSelectedFilter] = useState("All")
+  const filters = ["All", "UI", "Enhancement", "Feature", "Bug"]
+
   return (
     <FiltersWrapper>
       <TopCard>
@@ -21,12 +25,22 @@ const SideFilters = () => {
       </TopCard>
 
       <Filters>
-        {/* make buttons dinamyc  */}
-        <button>All</button>
-        <button>UI</button>
-        <button>Enhancement</button>
-        <button>Feature</button>
-        <button>Bug</button>
+        {filters.map((filter) => {
+          return (
+            <FilterButton
+              onClick={() => setSelectedFilter(filter)}
+              css={{
+                "--active-filter-bg":
+                  selectedFilter === filter ? "#4661e6" : "#f2f4ff",
+                "--active-filter-color":
+                  selectedFilter === filter ? "#fff" : "#4661e6",
+              }}
+              key={filter}
+            >
+              {filter}
+            </FilterButton>
+          )
+        })}
       </Filters>
 
       <RoadmapWrapper>

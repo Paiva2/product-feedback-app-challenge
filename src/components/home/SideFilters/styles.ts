@@ -46,22 +46,22 @@ export const Filters = styled("div", {
   background: "#fff",
   gap: ".625rem",
   maxWidth: "15.625rem",
+})
 
-  button: {
-    all: "unset",
-    color: "#4661e6",
-    fontWeight: "700",
-    fontSize: ".8125rem",
-    br: "10px",
-    backgroundColor: "#f2f4ff",
-    padding: ".3125rem .9375rem",
-    userSelect: "none",
-    cursor: "pointer",
-    transition: ".2s ease-in-out",
+export const FilterButton = styled("button", {
+  all: "unset",
+  color: "var(--active-filter-color)",
+  fontWeight: "700",
+  fontSize: ".8125rem",
+  br: "10px",
+  backgroundColor: "var(--active-filter-bg)",
+  padding: ".3125rem .9375rem",
+  userSelect: "none",
+  cursor: "pointer",
+  transition: ".2s ease-in-out",
 
-    "&:hover": {
-      backgroundColor: "#cfd7ff",
-    },
+  "&:hover": {
+    backgroundColor: "#cfd7ff",
   },
 })
 
