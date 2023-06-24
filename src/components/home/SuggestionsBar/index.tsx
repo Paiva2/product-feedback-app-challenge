@@ -16,6 +16,14 @@ import CheckedIcon from "@/components/icons/CheckedIcon"
 
 const SuggestionsBar = () => {
   const [openSortBy, setOpenSortBy] = useState(false)
+  const [selectedFilter, setSelectedFilter] = useState("Most Upvotes")
+
+  const filters = [
+    "Most Upvotes",
+    "Least Upvotes",
+    "Most comments",
+    "Least Comments",
+  ]
 
   const route = useRouter()
 
@@ -35,7 +43,7 @@ const SuggestionsBar = () => {
               className={openSortBy ? "openSort" : ""}
               onClick={() => setOpenSortBy(!openSortBy)}
             >
-              Most Upvotes <CaretDown size={15} weight="bold" />
+              {selectedFilter} <CaretDown size={15} weight="bold" />
             </SortByButton>
             <SortByFilterModal
               css={{
@@ -44,15 +52,24 @@ const SuggestionsBar = () => {
               }}
             >
               <ul>
-                <li>
-                  Most Upvotes{" "}
-                  <span>
-                    <CheckedIcon />
-                  </span>
-                </li>
-                <li>Least Upvotes</li>
-                <li>Most Comments</li>
-                <li>Least Comments</li>
+                {filters?.map((filter) => {
+                  return (
+                    <li
+                      onClick={() => {
+                        setSelectedFilter(filter), setOpenSortBy(false)
+                      }}
+                      key={filter}
+                    >
+                      {filter}
+
+                      {selectedFilter === filter && (
+                        <span>
+                          <CheckedIcon />
+                        </span>
+                      )}
+                    </li>
+                  )
+                })}
               </ul>
             </SortByFilterModal>
           </SortBy>

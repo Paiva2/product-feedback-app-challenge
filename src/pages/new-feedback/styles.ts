@@ -98,7 +98,6 @@ export const CategoryDropDownMenu = styled("ul", {
   background: "#fff",
   top: "100%",
   flexDirection: "column",
-  zIndex: "1000",
   justifyContent: "center",
   width: "100%",
   boxShadow: "0 10px 40px -7px rgba(55,63,104,.35)",
@@ -118,6 +117,7 @@ export const CategoryDropDownMenu = styled("ul", {
     color: "#647196",
     cursor: "pointer",
     transition: ".2s ease-in-out",
+    alignItems: "center",
 
     "&:hover": {
       color: "#ad1fea",
