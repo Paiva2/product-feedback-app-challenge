@@ -16,8 +16,11 @@ import {
 import { CaretLeft, CaretUp } from "phosphor-react"
 import Link from "next/link"
 import CommentsIcon from "@/components/icons/CommentsIcon"
+import { useRouter } from "next/router"
 
 const RoadmapView = () => {
+  const route = useRouter()
+
   return (
     <RoadmapContainer>
       <RoadmapWrapper>
@@ -31,7 +34,9 @@ const RoadmapView = () => {
           </GoBackWrapper>
 
           <NewfeedbackButtonWrapper>
-            <button>+ Add Feedback</button>
+            <button onClick={() => route.push("/new-feedback")}>
+              + Add Feedback
+            </button>
           </NewfeedbackButtonWrapper>
         </Topbar>
 

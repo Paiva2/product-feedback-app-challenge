@@ -12,6 +12,7 @@ import {
   TopCard,
   TopText,
 } from "./styles"
+import Link from "next/link"
 
 const SideFilters = () => {
   const [selectedFilter, setSelectedFilter] = useState("All")
@@ -46,7 +47,7 @@ const SideFilters = () => {
       <RoadmapWrapper>
         <RoadmapTitle>
           <span>Roadmap</span>
-          <a href="#">View</a>
+          <Link href="/roadmap-view">View</Link>
         </RoadmapTitle>
         <Roadmaps>
           <RoadmapNamesWrapper>
