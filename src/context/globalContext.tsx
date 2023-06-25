@@ -1,14 +1,20 @@
 import axios from "axios"
-import { createContext, useState, useEffect, ReactNode } from "react"
+import { createContext, useState } from "react"
 import { useQuery } from "react-query"
+import { IContext } from "../../types"
 
-export const GlobalContext = createContext(null)
+interface Props {
+  children: React.ReactNode
+}
 
-const GlobalStorage = ({ children }: any) => {
+export const GlobalContext = createContext<IContext | null>(null)
+
+const GlobalStorage = ({ children }: Props) => {
   const {
-    status,
     data,
+    status,
     error,
+    isLoading,
     refetch: refetchData,
   } = useQuery("suggestions", getSuggestions)
 
@@ -19,7 +25,7 @@ const GlobalStorage = ({ children }: any) => {
   }
 
   return (
-    <GlobalContext.Provider value={{ data, refetchData }}>
+    <GlobalContext.Provider value={{ data, refetchData, isLoading }}>
       {children}
     </GlobalContext.Provider>
   )

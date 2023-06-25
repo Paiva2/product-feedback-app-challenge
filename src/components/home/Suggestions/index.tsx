@@ -13,20 +13,10 @@ import {
 import axios from "axios"
 import { useContext } from "react"
 import { GlobalContext } from "@/context/globalContext"
-import { useQuery } from "react-query"
-
-interface SuggestionData {
-  data: {
-    id: number
-    title: string
-    description: string
-    upVotes: number
-    category: string
-  }
-}
+import { IContext, SuggestionData } from "../../../../types"
 
 const Suggestions = ({ data }: SuggestionData) => {
-  const { refetchData } = useContext(GlobalContext)
+  const { refetchData } = useContext(GlobalContext) as IContext
 
   const handleUpdateUpVote = async (suggestionId: number) => {
     const id = suggestionId

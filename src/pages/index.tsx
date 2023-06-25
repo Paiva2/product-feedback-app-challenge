@@ -5,11 +5,10 @@ import { Fragment, useContext } from "react"
 import { HomeContainer } from "./style"
 import SuggestionsBar from "@/components/home/SuggestionsBar"
 import { GlobalContext } from "@/context/globalContext"
+import { IContext } from "../../types"
 
 export default function Home() {
-  const { data } = useContext(GlobalContext)
-
-  console.log(data)
+  const { data } = useContext(GlobalContext) as IContext
 
   return (
     <Fragment>
