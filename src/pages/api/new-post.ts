@@ -5,19 +5,22 @@ type Data = {
   message?: string
 }
 
-export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) {
   if (req.method !== "POST") {
     return res.status(404).end()
   }
 
-  prisma.posts.create({
+  await prisma.posts.create({
     data: {
-      title: req.body.title,
-      description: req.body.description,
+      title: req.body.feedbackTitle.text,
+      description: req.body.feedbackDetail.text,
+      category: req.body.feedbackCategory.text,
       upVotes: 0,
-      category: req.body.category,
     },
   })
 
-  return res.status(201).end({ message: "Feedback created with success!" })
+  return res.status(201).json({ message: "Feedback created with success!" })
 }

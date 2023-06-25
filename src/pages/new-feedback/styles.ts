@@ -53,6 +53,22 @@ export const NewFeedBackForm = styled("form", {
   flexDirection: "column",
   gap: "1.25rem",
 
+  ".error-msg": {
+    "input, textarea": {
+      border: "1px solid #d73737",
+
+      "&:focus": {
+        outline: "1px solid #d73737",
+      },
+    },
+
+    "p:last-child": {
+      margin: 0,
+      color: "#d73737",
+      fontSize: ".875rem",
+    },
+  },
+
   label: {
     display: "flex",
     w: "100%",
