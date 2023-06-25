@@ -11,7 +11,17 @@ import {
   UpVoteButton,
 } from "./styles"
 
-const Suggestions = () => {
+interface SuggestionData {
+  data: {
+    id: number
+    title: string
+    description: string
+    upVotes: number
+    category: string
+  }
+}
+
+const Suggestions = ({ data }: SuggestionData) => {
   return (
     <CardContainer>
       <CardWrapper>
@@ -24,13 +34,11 @@ const Suggestions = () => {
           </span>
 
           <FeedbackResume>
-            <Text model="resumeTitle">Add tags for solutions</Text>
-            <Text model="resumeDescription">
-              Easier to search for solutions based on a specific stack.
-            </Text>
+            <Text model="resumeTitle">{data.title}</Text>
+            <Text model="resumeDescription">{data.description}</Text>
 
             <div>
-              <CategoryPin>Enhancement</CategoryPin>
+              <CategoryPin>{data.category}</CategoryPin>
             </div>
           </FeedbackResume>
         </FeedbackResumeContainer>
