@@ -5,18 +5,21 @@ import { useQuery } from "react-query"
 export const GlobalContext = createContext(null)
 
 const GlobalStorage = ({ children }: any) => {
-  const [suggestionsData, setSuggestionsData] = useState([])
-
-  const { data, error, isError, isLoading } = useQuery("suggestions", getSuggestions)
+  const {
+    status,
+    data,
+    error,
+    refetch: refetchData,
+  } = useQuery("suggestions", getSuggestions)
 
   async function getSuggestions() {
-    const postsResponse = await axios.get("/api/posts")
+    const { data } = await axios.get("/api/posts")
 
-    setSuggestionsData(postsResponse.data)
+    return data
   }
 
   return (
-    <GlobalContext.Provider value={{ suggestionsData }}>
+    <GlobalContext.Provider value={{ data, refetchData }}>
       {children}
     </GlobalContext.Provider>
   )

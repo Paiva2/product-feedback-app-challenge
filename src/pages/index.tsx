@@ -7,7 +7,9 @@ import SuggestionsBar from "@/components/home/SuggestionsBar"
 import { GlobalContext } from "@/context/globalContext"
 
 export default function Home() {
-  const { suggestionsData } = useContext(GlobalContext)
+  const { data } = useContext(GlobalContext)
+
+  console.log(data)
 
   return (
     <Fragment>
@@ -30,7 +32,7 @@ export default function Home() {
         >
           <SuggestionsBar />
 
-          {suggestionsData?.map((suggestion) => (
+          {data?.map((suggestion) => (
             <Suggestions key={suggestion.id} data={suggestion} />
           ))}
         </div>

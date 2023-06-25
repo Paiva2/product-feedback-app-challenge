@@ -11,6 +11,9 @@ import {
   UpVoteButton,
 } from "./styles"
 import axios from "axios"
+import { useContext } from "react"
+import { GlobalContext } from "@/context/globalContext"
+import { useQuery } from "react-query"
 
 interface SuggestionData {
   data: {
@@ -23,10 +26,14 @@ interface SuggestionData {
 }
 
 const Suggestions = ({ data }: SuggestionData) => {
+  const { refetchData } = useContext(GlobalContext)
+
   const handleUpdateUpVote = async (suggestionId: number) => {
     const id = suggestionId
 
     await axios.post("/api/posts", { id })
+
+    refetchData()
   }
 
   return (
