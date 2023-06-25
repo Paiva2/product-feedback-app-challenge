@@ -1,23 +1,13 @@
 import Head from "next/head"
 import Suggestions from "@/components/home/Suggestions"
 import SideFilters from "@/components/home/SideFilters"
-import { Fragment, useEffect, useState } from "react"
+import { Fragment, useContext } from "react"
 import { HomeContainer } from "./style"
 import SuggestionsBar from "@/components/home/SuggestionsBar"
-import axios from "axios"
+import { GlobalContext } from "@/context/globalContext"
 
 export default function Home() {
-  const [suggestionsData, setSuggestionsData] = useState([])
-
-  useEffect(() => {
-    ;(async () => {
-      const postsResponse = await axios.get("/api/posts")
-
-      setSuggestionsData(postsResponse.data)
-    })()
-  }, [])
-
-  console.log(suggestionsData?.map((suggestion) => console.log(suggestion)))
+  const { suggestionsData } = useContext(GlobalContext)
 
   return (
     <Fragment>

@@ -10,6 +10,7 @@ import {
   Text,
   UpVoteButton,
 } from "./styles"
+import axios from "axios"
 
 interface SuggestionData {
   data: {
@@ -22,14 +23,20 @@ interface SuggestionData {
 }
 
 const Suggestions = ({ data }: SuggestionData) => {
+  const handleUpdateUpVote = async (suggestionId: number) => {
+    const id = suggestionId
+
+    await axios.post("/api/posts", { id })
+  }
+
   return (
     <CardContainer>
       <CardWrapper>
         <FeedbackResumeContainer>
           <span>
-            <UpVoteButton>
+            <UpVoteButton onClick={() => handleUpdateUpVote(data.id)}>
               <CaretUp color="#4661e6" size={15} weight="bold" />
-              112
+              {data.upVotes}
             </UpVoteButton>
           </span>
 

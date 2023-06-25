@@ -1,25 +1,35 @@
 import { prisma } from "@/lib/prisma"
 import type { NextApiRequest, NextApiResponse } from "next"
 
-type Data = {
-  id: number
-  title: string
-  description: string
-  upVotes: number
-  createdAt: Date
-  updatedAt: Date
-  category: string
-}
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  if (req.method !== "GET") {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== "GET" && req.method !== "POST") {
     return res.status(404).end()
   }
 
-  const posts = await prisma.posts.findMany()
+  if (req.method === "GET") {
+    const posts = await prisma.posts.findMany()
 
-  return res.status(200).json(posts)
+    return res.status(200).json(posts)
+  }
+
+  if (req.method === "POST") {
+    const post = await prisma.posts.findUnique({
+      where: {
+        id: req.body.id,
+      },
+    })
+
+    if (post) {
+      await prisma.posts.update({
+        where: {
+          id: req.body.id,
+        },
+        data: {
+          upVotes: post.upVotes + 1,
+        },
+      })
+
+      return res.status(201).end()
+    }
+  }
 }
