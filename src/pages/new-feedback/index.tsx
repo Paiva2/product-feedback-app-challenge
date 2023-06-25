@@ -1,5 +1,5 @@
 import PlusIcon from "@/components/icons/PlusIcon"
-import React, { FormEvent, useEffect, useState } from "react"
+import React, { FormEvent, useEffect, useRef, useState } from "react"
 import { CaretDown, CaretLeft } from "phosphor-react"
 import Link from "next/link"
 import {
@@ -36,7 +36,7 @@ interface IForm {
 const NewFeedback = () => {
   const [categoryModalOpen, setCategoryModalOpen] = useState(false)
   const [selectCategory, setSelectCategory] = useState("Feature")
-  const [formData, setFormData] = useState<IForm>({
+  const formDefaultValue = {
     feedbackTitle: {
       text: "",
       error: false,
@@ -49,7 +49,9 @@ const NewFeedback = () => {
       text: "",
       error: false,
     },
-  })
+  }
+  const [formData, setFormData] = useState<IForm>(formDefaultValue)
+  const formRef = useRef<HTMLFormElement | null>(null)
 
   const categories = ["Feature", "UI", "UX", "Enhancement", "Bug"]
 
@@ -121,6 +123,9 @@ const NewFeedback = () => {
       const response = await axios.post("/api/new-post", formData)
 
       alertMessage("success", response.data.message)
+
+      formRef.current?.reset()
+      setFormData(formDefaultValue)
     } catch (e) {
       console.warn(e)
     }
@@ -140,7 +145,7 @@ const NewFeedback = () => {
 
           <Text model="title">Create New Feedback</Text>
 
-          <NewFeedBackForm onSubmit={(e) => handleSumit(e)}>
+          <NewFeedBackForm ref={formRef} onSubmit={(e) => handleSumit(e)}>
             <label className={formData.feedbackTitle.error ? "error-msg" : ""}>
               <Text model="labelTitle">Feedback Title</Text>
               <Text model="description">Add a short, descriptive headline</Text>

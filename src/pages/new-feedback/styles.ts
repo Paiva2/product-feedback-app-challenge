@@ -107,7 +107,7 @@ export const CategoryLabel = styled("label", {
 
 export const CategoryDropDownMenu = styled("ul", {
   position: "absolute",
-  transition: "all .3s ease-in-out",
+  transition: "opacity .2s ease-in-out, visibility .2s",
   display: "flex",
   padding: "0",
   listStyle: "none",
@@ -132,7 +132,6 @@ export const CategoryDropDownMenu = styled("ul", {
     fontSize: "1rem",
     color: "#647196",
     cursor: "pointer",
-    transition: ".2s ease-in-out",
     alignItems: "center",
 
     "&:hover": {
