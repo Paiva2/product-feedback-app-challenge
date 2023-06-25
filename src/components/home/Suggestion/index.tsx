@@ -15,7 +15,7 @@ import { useContext } from "react"
 import { GlobalContext } from "@/context/globalContext"
 import { IContext, SuggestionData } from "../../../../types"
 
-const Suggestions = ({ data }: SuggestionData) => {
+const Suggestion = ({ data }: SuggestionData) => {
   const { refetchData } = useContext(GlobalContext) as IContext
 
   const handleUpdateUpVote = async (suggestionId: number) => {
@@ -55,4 +55,4 @@ const Suggestions = ({ data }: SuggestionData) => {
   )
 }
 
-export default Suggestions
+export default Suggestion
