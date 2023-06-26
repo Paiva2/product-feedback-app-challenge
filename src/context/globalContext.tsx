@@ -12,8 +12,6 @@ export const GlobalContext = createContext<IContext | null>(null)
 const GlobalStorage = ({ children }: Props) => {
   const {
     data,
-    status,
-    error,
     isLoading,
     refetch: refetchData,
   } = useQuery("suggestions", getSuggestions)

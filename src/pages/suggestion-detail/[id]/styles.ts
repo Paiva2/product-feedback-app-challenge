@@ -82,6 +82,7 @@ export const Comment = styled("div", {
   display: "flex",
   flexDirection: "column",
   gap: ".9375rem",
+  w: "100%",
 })
 
 export const Text = styled("p", {

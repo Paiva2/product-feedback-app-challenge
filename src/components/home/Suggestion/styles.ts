@@ -52,6 +52,14 @@ export const FeedbackResume = styled("div", {
   display: "flex",
   flexDirection: "column",
   gap: ".625rem",
+
+  "&:hover": {
+    cursor: "pointer",
+
+    "p:first-child": {
+      color: "#4661e6",
+    },
+  },
 })
 
 export const Text = styled("p", {

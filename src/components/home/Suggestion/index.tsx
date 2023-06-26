@@ -14,9 +14,12 @@ import axios from "axios"
 import { useContext } from "react"
 import { GlobalContext } from "@/context/globalContext"
 import { IContext, SuggestionData } from "../../../../types"
+import { useRouter } from "next/router"
 
 const Suggestion = ({ data }: SuggestionData) => {
   const { refetchData } = useContext(GlobalContext) as IContext
+
+  const route = useRouter()
 
   const handleUpdateUpVote = async (suggestionId: number) => {
     const id = suggestionId
@@ -24,6 +27,12 @@ const Suggestion = ({ data }: SuggestionData) => {
     await axios.post("/api/posts", { id })
 
     refetchData()
+  }
+
+  const handleGoToFeedback = (id: number) => {
+    if (!route.pathname.includes("suggestion-detail")) {
+      route.push(`/suggestion-detail/${id}`)
+    }
   }
 
   return (
@@ -37,7 +46,7 @@ const Suggestion = ({ data }: SuggestionData) => {
             </UpVoteButton>
           </span>
 
-          <FeedbackResume>
+          <FeedbackResume onClick={() => handleGoToFeedback(data.id)}>
             <Text model="resumeTitle">{data.title}</Text>
             <Text model="resumeDescription">{data.description}</Text>
 
