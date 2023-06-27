@@ -163,9 +163,7 @@ interface Params extends ParsedUrlQuery {
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { id } = params as Params
 
-  const { data } = await axios.post("http://localhost:3000/api/posts", {
-    id: Number(id),
-  })
+  const { data } = await axios.get(`http://localhost:3000/api/posts/${id}`)
 
   return { props: data }
 }

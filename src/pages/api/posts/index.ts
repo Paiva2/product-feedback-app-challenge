@@ -6,22 +6,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(404).end()
   }
 
-  if (req.method === "POST" && req.body.id) {
-    const post = await prisma.posts.findUnique({
-      where: {
-        id: Number(req.body.id),
-      },
-      include: {
-        comment: true,
-        _count: {
-          select: { comment: true },
-        },
-      },
-    })
-
-    return res.status(200).json(post)
-  }
-
   if (req.method === "GET") {
     const posts = await prisma.posts.findMany()
 
