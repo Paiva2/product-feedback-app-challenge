@@ -19,6 +19,7 @@ export default async function handler(
       description: req.body.feedbackDetail.text,
       category: req.body.feedbackCategory.text,
       upVotes: 0,
+      status: "Suggestion",
     },
   })
 

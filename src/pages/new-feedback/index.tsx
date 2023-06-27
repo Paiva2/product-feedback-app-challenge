@@ -1,5 +1,5 @@
 import PlusIcon from "@/components/icons/PlusIcon"
-import React, { FormEvent, useEffect, useRef, useState } from "react"
+import React, { FormEvent, useContext, useEffect, useRef, useState } from "react"
 import { CaretDown, CaretLeft } from "phosphor-react"
 import Link from "next/link"
 import {
@@ -17,67 +17,21 @@ import {
 import CheckedIcon from "@/components/icons/CheckedIcon"
 import axios from "axios"
 import { alertMessage } from "../../lib/alertMessage"
-
-interface IForm {
-  feedbackTitle: {
-    text: string
-    error: boolean
-  }
-  feedbackDetail: {
-    text: string
-    error: boolean
-  }
-  feedbackCategory: {
-    text: string
-    error: boolean
-  }
-}
+import { checkFormErrorsOnSubmit } from "@/utils/checkErrorsOnSubmit"
+import { handleGetInputValue } from "@/utils/handleGetInputValue"
+import { IForm } from "../../../types"
+import { GlobalContext } from "@/context/globalContext"
 
 const NewFeedback = () => {
   const [categoryModalOpen, setCategoryModalOpen] = useState(false)
   const [selectCategory, setSelectCategory] = useState("Feature")
-  const formDefaultValue = {
-    feedbackTitle: {
-      text: "",
-      error: false,
-    },
-    feedbackDetail: {
-      text: "",
-      error: false,
-    },
-    feedbackCategory: {
-      text: "",
-      error: false,
-    },
-  }
+
+  const { formDefaultValue } = useContext(GlobalContext)
+
   const [formData, setFormData] = useState<IForm>(formDefaultValue)
   const formRef = useRef<HTMLFormElement | null>(null)
 
   const categories = ["Feature", "UI", "UX", "Enhancement", "Bug"]
-
-  const handleGetInputValue = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    input: string
-  ) => {
-    setFormData((oldValue) => {
-      const formDataCopy = {
-        ...oldValue[input as keyof typeof formData],
-        text: e.target.value,
-      }
-
-      return {
-        ...oldValue,
-        [input]: {
-          text: formDataCopy.text,
-          error: formDataCopy.error,
-        },
-        feedbackCategory: {
-          text: selectCategory,
-          error: false,
-        },
-      }
-    })
-  }
 
   useEffect(() => {
     if (formData.feedbackTitle.text) {
@@ -89,33 +43,10 @@ const NewFeedback = () => {
     }
   }, [formData])
 
-  const checkFormErrorsOnSubmit = () => {
-    Object.keys(formData).map((value) => {
-      if (formData[value as keyof typeof formData].text === "") {
-        setFormData((oldValue) => {
-          const formDataCopy = {
-            ...oldValue[value as keyof typeof formData],
-            error: true,
-          }
-
-          return {
-            ...oldValue,
-            [value]: {
-              text: formDataCopy.text,
-              error: formDataCopy.error,
-            },
-          }
-        })
-      } else {
-        formData[value as keyof typeof formData].error = false
-      }
-    })
-  }
-
   const handleSumit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    checkFormErrorsOnSubmit()
+    checkFormErrorsOnSubmit(formData, setFormData)
 
     if (!formData.feedbackDetail.text || !formData.feedbackTitle.text) return
 
@@ -150,7 +81,15 @@ const NewFeedback = () => {
               <Text model="labelTitle">Feedback Title</Text>
               <Text model="description">Add a short, descriptive headline</Text>
               <input
-                onChange={(e) => handleGetInputValue(e, "feedbackTitle")}
+                onChange={(e) =>
+                  handleGetInputValue(
+                    e,
+                    "feedbackTitle",
+                    setFormData,
+                    formData,
+                    selectCategory
+                  )
+                }
                 type="text"
               />
               {formData.feedbackTitle.error && <p>Can&apos; t be empty!</p>}
@@ -195,7 +134,17 @@ const NewFeedback = () => {
               <Text model="description">
                 Include any specific comments on what should be improved, added, etc.
               </Text>
-              <textarea onChange={(e) => handleGetInputValue(e, "feedbackDetail")} />
+              <textarea
+                onChange={(e) =>
+                  handleGetInputValue(
+                    e,
+                    "feedbackDetail",
+                    setFormData,
+                    formData,
+                    selectCategory
+                  )
+                }
+              />
               {formData.feedbackDetail.error && <p>Can&apos; t be empty!</p>}
             </label>
 

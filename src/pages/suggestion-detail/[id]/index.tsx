@@ -21,24 +21,10 @@ import Link from "next/link"
 import Image from "next/image"
 import { GetServerSideProps } from "next"
 import axios from "axios"
-import { DataSchema } from "../../../../types"
+import { PostSectionData } from "../../../../types"
 import { ParsedUrlQuery } from "querystring"
 import { useQuery } from "react-query"
-
-interface PostSectionData extends DataSchema {
-  _count: { comment: number }
-  comment: [
-    {
-      id: string
-      iconImage: string
-      name: string
-      username: string
-      description: string
-      postsId: number
-      createdAt: string
-    }
-  ]
-}
+import { useRouter } from "next/router"
 
 const SuggestionDetail = (props: { id: string }) => {
   const {
@@ -52,6 +38,8 @@ const SuggestionDetail = (props: { id: string }) => {
 
     return data
   }
+
+  const route = useRouter()
 
   const [newComment, setNewComment] = useState("")
   const commentCount = postData?._count.comment
@@ -73,7 +61,9 @@ const SuggestionDetail = (props: { id: string }) => {
             <Link href="/">Go Back</Link>
           </div>
           <div>
-            <button>Edit Feedback</button>
+            <button type="button" onClick={() => route.push(`edit/${postData?.id}`)}>
+              Edit Feedback
+            </button>
           </div>
         </Header>
 

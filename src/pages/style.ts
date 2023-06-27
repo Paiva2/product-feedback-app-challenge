@@ -6,5 +6,6 @@ export const HomeContainer = styled("main", {
   justifyContent: "center",
   alignItems: "center",
   paddingTop: "6.25rem",
+  paddingBottom: "3.125rem",
   gap: "1.875rem",
 })
