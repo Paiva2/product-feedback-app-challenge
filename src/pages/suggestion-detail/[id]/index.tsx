@@ -1,5 +1,5 @@
 import Suggestion from "@/components/home/Suggestion"
-import React, { useContext, useState } from "react"
+import React, { useState } from "react"
 import {
   Comment,
   CommentImage,
@@ -21,10 +21,9 @@ import Link from "next/link"
 import Image from "next/image"
 import { GetServerSideProps } from "next"
 import axios from "axios"
-import { DataSchema, IContext } from "../../../../types"
+import { DataSchema } from "../../../../types"
 import { ParsedUrlQuery } from "querystring"
-import { GlobalContext } from "@/context/globalContext"
-import { useRouter } from "next/router"
+import { useQuery } from "react-query"
 
 interface PostSectionData extends DataSchema {
   _count: { comment: number }
@@ -41,19 +40,29 @@ interface PostSectionData extends DataSchema {
   ]
 }
 
-const SuggestionDetail = (props: PostSectionData) => {
+const SuggestionDetail = (props: { id: string }) => {
+  const {
+    data: postData,
+    isLoading,
+    refetch: refetchData,
+  } = useQuery<PostSectionData>("specificPost", getSuggestions)
+
+  async function getSuggestions() {
+    const { data } = await axios.get(`/api/posts/${props.id}`)
+
+    return data
+  }
+
   const [newComment, setNewComment] = useState("")
-  const commentCount = props._count.comment
+  const commentCount = postData?._count.comment
 
-  const route = useRouter()
-
-  const refreshData = () => route.replace(route.asPath)
-
-  const handleNewComment = async (id: number) => {
+  const handleNewComment = async (id: number | undefined) => {
     await axios.post("/api/new-comment", { id, comment: newComment })
 
-    refreshData()
+    refetchData()
   }
+
+  if (isLoading) return <></>
 
   return (
     <CommentsContainer>
@@ -68,12 +77,12 @@ const SuggestionDetail = (props: PostSectionData) => {
           </div>
         </Header>
 
-        <Suggestion data={props} />
+        {postData && <Suggestion data={postData} />}
 
         <MiddleSection>
           <CommentSectionWrapper>
             <CommentQuantity>
-              {commentCount} Comment{commentCount > 1 && "s"}
+              {commentCount} Comment{commentCount && commentCount > 1 && "s"}
             </CommentQuantity>
 
             <CommentInformations>
@@ -104,7 +113,7 @@ const SuggestionDetail = (props: PostSectionData) => {
               </Comment>
             </CommentInformations>
 
-            {props.comment.map((content) => {
+            {postData?.comment?.map((content) => {
               return (
                 <CommentInformations key={content.id}>
                   <CommentImage>
@@ -143,7 +152,7 @@ const SuggestionDetail = (props: PostSectionData) => {
             <PostComment>
               <p>255 characters left</p>
 
-              <button type="button" onClick={() => handleNewComment(props.id)}>
+              <button type="button" onClick={() => handleNewComment(postData?.id)}>
                 Post Comment
               </button>
             </PostComment>
@@ -163,7 +172,5 @@ interface Params extends ParsedUrlQuery {
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { id } = params as Params
 
-  const { data } = await axios.get(`http://localhost:3000/api/posts/${id}`)
-
-  return { props: data }
+  return { props: { id } }
 }
