@@ -102,6 +102,10 @@ const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
         break
 
       case "delete-feedback":
+        if (Number(props.id) < 4) {
+          return alertMessage("error", "You cant delete feedback examples :p")
+        }
+
         try {
           const response = await axios.delete(`/api/posts/${props.id}`)
 
