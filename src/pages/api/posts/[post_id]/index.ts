@@ -4,7 +4,12 @@ import type { NextApiRequest, NextApiResponse } from "next"
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { post_id } = req.query
 
-  if (req.method !== "GET" && req.method !== "POST" && req.method !== "DELETE") {
+  if (
+    req.method !== "GET" &&
+    req.method !== "POST" &&
+    req.method !== "DELETE" &&
+    req.method !== "PATCH"
+  ) {
     return res.status(404).end()
   }
 
@@ -19,6 +24,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
     },
   })
+
+  if (req.method === "PATCH") {
+    const comment = await prisma.comment.findUnique({
+      where: {
+        id: Number(post_id),
+      },
+    })
+
+    await prisma.reply.create({
+      data: {
+        name: "paiva",
+        username: "@paiva",
+        iconImage:
+          "https://i.postimg.cc/cC3ZKyyP/052c177ea1956fbd4b22c9ee508ee67a.jpg",
+        description: req.body.comment,
+        postsId: post?.id,
+      },
+    })
+  }
 
   if (req.method === "DELETE") {
     await prisma.posts.delete({

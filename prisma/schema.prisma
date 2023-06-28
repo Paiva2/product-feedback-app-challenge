@@ -25,7 +25,7 @@ model Posts {
   comment     Comment[]
   status      String?
   Reply       Reply[]
-  upVoted     Boolean
+  upVoted     Boolean   @default(false)
 }
 
 model Comment {
@@ -34,10 +34,11 @@ model Comment {
   name        String
   username    String
   description String   @db.VarChar(250)
-  posts       Posts?   @relation(fields: [postsId], references: [id])
   postsId     Int?
   createdAt   DateTime @default(now())
   replies     Reply[]
+
+  posts Posts? @relation(fields: [postsId], references: [id])
 }
 
 model Reply {
@@ -49,6 +50,7 @@ model Reply {
   posts       Posts?   @relation(fields: [postsId], references: [id])
   postsId     Int?
   createdAt   DateTime @default(now())
-  Comment     Comment? @relation(fields: [commentId], references: [id])
   commentId   Int?
+
+  Comment Comment? @relation(fields: [commentId], references: [id])
 }

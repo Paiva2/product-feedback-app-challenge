@@ -1,17 +1,22 @@
 import Suggestion from "@/components/home/Suggestion"
-import React, { useState } from "react"
+import React, { Fragment, useState } from "react"
 import {
   Comment,
   CommentImage,
   CommentInformations,
   CommentQuantity,
   CommentSectionWrapper,
+  CommentWrapper,
   CommentsContainer,
   CommentsWrapper,
   Header,
   MiddleSection,
   NewCommentContainer,
   PostComment,
+  Reply,
+  ReplyArea,
+  ReplyImage,
+  ReplySectionContaner,
   Text,
   UserInformations,
   Username,
@@ -42,10 +47,23 @@ const SuggestionDetail = (props: { id: string }) => {
   const route = useRouter()
 
   const [newComment, setNewComment] = useState("")
+  const [openCommentReply, setOpenCommentReply] = useState(false)
+  const [openReplyReplies, setOpenReplyReplies] = useState(false)
+
+  const [replyValue, setReplyValue] = useState("")
+
   const commentCount = postData?._count.comment
 
   const handleNewComment = async (id: number | undefined) => {
     await axios.post("/api/new-comment", { id, comment: newComment })
+
+    refetchData()
+  }
+
+  const handleNewReply = async () => {
+    const id = props.id
+
+    await axios.patch(`/api/posts/${id}`, { reply: replyValue })
 
     refetchData()
   }
@@ -76,57 +94,122 @@ const SuggestionDetail = (props: { id: string }) => {
             </CommentQuantity>
 
             <CommentInformations>
-              <CommentImage>
-                <Image
-                  width={40}
-                  height={40}
-                  alt="User profile"
-                  src="https://i.postimg.cc/L8LCLyJd/image-elijah.jpg"
-                />
-              </CommentImage>
-              <Comment>
-                <UserInformations>
-                  <Username>
-                    <Text model="user">Elijah Moss</Text>
-                    <Text model="username">@hexagon.bestagon</Text>
-                  </Username>
+              <CommentWrapper>
+                <CommentImage>
+                  <Image
+                    width={40}
+                    height={40}
+                    alt="User profile"
+                    src="https://i.postimg.cc/L8LCLyJd/image-elijah.jpg"
+                  />
+                </CommentImage>
+                <Comment>
+                  <UserInformations>
+                    <Username>
+                      <Text model="user">Elijah Moss</Text>
+                      <Text model="username">@hexagon.bestagon</Text>
+                    </Username>
 
-                  <button>Reply</button>
-                </UserInformations>
+                    <button
+                      type="button"
+                      onClick={() => setOpenCommentReply(!openCommentReply)}
+                    >
+                      Reply
+                    </button>
+                  </UserInformations>
 
-                <Text model="comment">
-                  Also, please allow styles to be applied based on system
-                  preferences. I would love to be able to browse Frontend Mentor in
-                  the evening after my devices dark mode turns on without the bright
-                  background it currently has.
-                </Text>
-              </Comment>
-            </CommentInformations>
-
-            {postData?.comment?.map((content) => {
-              return (
-                <CommentInformations key={content.id}>
-                  <CommentImage>
+                  <Text model="comment">
+                    Also, please allow styles to be applied based on system
+                    preferences. I would love to be able to browse Frontend Mentor in
+                    the evening after my devices dark mode turns on without the
+                    bright background it currently has.
+                  </Text>
+                  {openCommentReply && (
+                    <ReplyArea>
+                      <textarea placeholder="Type your reply here!" />
+                      <button type="button">Reply</button>
+                    </ReplyArea>
+                  )}
+                </Comment>
+              </CommentWrapper>
+              {/* reply */}
+              <ReplySectionContaner>
+                <div>
+                  <ReplyImage>
                     <Image
                       width={40}
                       height={40}
                       alt="User profile"
-                      src={content.iconImage}
+                      src="https://i.postimg.cc/L8LCLyJd/image-elijah.jpg"
                     />
-                  </CommentImage>
-                  <Comment>
+                  </ReplyImage>
+                  <Reply>
                     <UserInformations>
                       <Username>
-                        <Text model="user">{content.name}</Text>
-                        <Text model="username">{content.username}</Text>
+                        <Text model="user">Elijah Moss</Text>
+                        <Text model="username">@hexagon.bestagon</Text>
                       </Username>
 
                       <button>Reply</button>
                     </UserInformations>
 
-                    <Text model="comment">{content.description}</Text>
-                  </Comment>
-                </CommentInformations>
+                    <Text model="comment">
+                      Also, please allow styles to be applied based on system
+                      preferences. I would love to be able to browse Frontend Mentor
+                      in the evening after my devices dark mode turns on without the
+                      bright background it currently has.
+                    </Text>
+                    <ReplyArea>
+                      <textarea placeholder="Type your reply here!" />
+                      <button type="button">Reply</button>
+                    </ReplyArea>
+                  </Reply>
+                </div>
+              </ReplySectionContaner>
+            </CommentInformations>
+
+            {postData?.comment?.map((content) => {
+              return (
+                <Fragment key={content.id}>
+                  <CommentWrapper>
+                    <CommentImage>
+                      <Image
+                        width={40}
+                        height={40}
+                        alt="User profile"
+                        src={content.iconImage}
+                      />
+                    </CommentImage>
+                    <Comment>
+                      <UserInformations>
+                        <Username>
+                          <Text model="user">{content.name}</Text>
+                          <Text model="username">{content.username}</Text>
+                        </Username>
+
+                        <button
+                          type="button"
+                          onClick={() => setOpenCommentReply(!openCommentReply)}
+                        >
+                          Reply
+                        </button>
+                      </UserInformations>
+
+                      <Text model="comment">{content.description}</Text>
+                      {openCommentReply && (
+                        <ReplyArea>
+                          <textarea
+                            onChange={(e) => setReplyValue(e.target.value)}
+                            placeholder="Type your reply here!"
+                          />
+                          <button onClick={handleNewReply} type="button">
+                            Reply
+                          </button>
+                        </ReplyArea>
+                      )}
+                    </Comment>
+                  </CommentWrapper>
+                </Fragment>
               )
             })}
           </CommentSectionWrapper>

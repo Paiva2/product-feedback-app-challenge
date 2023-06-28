@@ -103,7 +103,7 @@ const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
 
       case "delete-feedback":
         if (Number(props.id) < 4) {
-          return alertMessage("error", "You cant delete feedback examples :p")
+          return alertMessage("error", "You can't delete feedback examples :p")
         }
 
         try {
