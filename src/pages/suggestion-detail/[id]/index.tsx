@@ -72,7 +72,7 @@ const SuggestionDetail = (props: { id: string }) => {
         <MiddleSection>
           <CommentSectionWrapper>
             <CommentQuantity>
-              {commentCount} Comment{commentCount && commentCount > 1 && "s"}
+              {commentCount} Comment{!!commentCount && commentCount > 1 && "s"}
             </CommentQuantity>
 
             <CommentInformations>

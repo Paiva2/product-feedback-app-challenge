@@ -1,17 +1,16 @@
 import { IForm } from "../../types"
 
 export const handleGetInputValue = (
-  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | undefined,
   input: string,
   setFormData: React.Dispatch<React.SetStateAction<IForm>>,
   formData: IForm,
-  selectedCategory?: string,
-  selectedStatus?: string
+  dropdownValue?: string
 ) => {
   setFormData((oldValue) => {
     const formDataCopy = {
       ...oldValue[input as keyof typeof formData],
-      text: e.target.value,
+      text: e?.target.value ?? dropdownValue,
     }
 
     return {
@@ -19,14 +18,6 @@ export const handleGetInputValue = (
       [input]: {
         text: formDataCopy.text,
         error: formDataCopy.error,
-      },
-      feedbackStatus: {
-        text: selectedStatus ?? "",
-        error: false,
-      },
-      feedbackCategory: {
-        text: selectedCategory ?? "",
-        error: false,
       },
     }
   })

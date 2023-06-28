@@ -26,7 +26,7 @@ const NewFeedback = () => {
   const [categoryModalOpen, setCategoryModalOpen] = useState(false)
   const [selectCategory, setSelectCategory] = useState("Feature")
 
-  const { formDefaultValue } = useContext(GlobalContext)
+  const { formDefaultValue, refetchData } = useContext(GlobalContext)
 
   const [formData, setFormData] = useState<IForm>(formDefaultValue)
   const formRef = useRef<HTMLFormElement | null>(null)
@@ -57,6 +57,8 @@ const NewFeedback = () => {
 
       formRef.current?.reset()
       setFormData(formDefaultValue)
+
+      refetchData()
     } catch (e) {
       console.warn(e)
     }

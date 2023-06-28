@@ -14,6 +14,7 @@ import {
   StatusLabel,
   StatusDropdownMenu,
   SaveChangesButtonWrapper,
+  Button,
 } from "./styles"
 import CheckedIcon from "@/components/icons/CheckedIcon"
 import axios from "axios"
@@ -25,35 +26,41 @@ import { IForm, PostSectionData } from "../../../../types"
 import { GlobalContext } from "@/context/globalContext"
 import { GetServerSideProps } from "next"
 import { ParsedUrlQuery } from "querystring"
-import { useQuery } from "react-query"
 import { useRouter } from "next/router"
 
 const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
-  const {
-    data: postData,
-    isLoading,
-    refetch: refetchData,
-  } = useQuery<PostSectionData>("specificPostToEdit", getSuggestion)
+  const { refetchData } = useContext(GlobalContext)
 
   const router = useRouter()
-
-  async function getSuggestion() {
-    const { data } = await axios.get(`/api/posts/${props.id}`)
-
-    return data
-  }
-
-  const [categoryModalOpen, setCategoryModalOpen] = useState<boolean | null>(false)
-  const [updateStatusModalOpen, setUpdateStatusModalOpen] = useState(false)
 
   const categories = ["Feature", "UI", "UX", "Enhancement", "Bug"]
   const status = ["Suggestion", "Planned", "In-Progress", "Live"]
 
+  const [categoryModalOpen, setCategoryModalOpen] = useState<boolean | null>(false)
+  const [updateStatusModalOpen, setUpdateStatusModalOpen] = useState(false)
+
   const [selectCategory, setSelectCategory] = useState(props.data?.category)
   const [selectStatus, setSelectStatus] = useState(props.data?.status)
 
-  const { formDefaultValue } = useContext(GlobalContext)
-  const [formData, setFormData] = useState<IForm>(formDefaultValue)
+  const [formData, setFormData] = useState<IForm>({
+    feedbackTitle: {
+      text: props.data?.title,
+      error: false,
+    },
+    feedbackDetail: {
+      text: props.data?.description,
+      error: false,
+    },
+    feedbackStatus: {
+      text: props.data?.status,
+      error: false,
+    },
+    feedbackCategory: {
+      text: props.data?.category,
+      error: false,
+    },
+  })
+
   const formRef = useRef<HTMLFormElement | null>(null)
 
   useEffect(() => {
@@ -69,21 +76,46 @@ const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
   const handleSumit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    checkFormErrorsOnSubmit(formData, setFormData)
+    if (!(e.nativeEvent instanceof SubmitEvent)) return
 
-    if (!formData.feedbackDetail.text || !formData.feedbackTitle.text) return
+    const actionButtonName = e.nativeEvent.submitter
 
-    try {
-      const response = await axios.post(`/api/posts/${props.id}`, formData)
+    if (!(actionButtonName instanceof HTMLButtonElement)) return
 
-      alertMessage("success", response.data.message)
+    switch (actionButtonName.name) {
+      case "save-changes":
+        checkFormErrorsOnSubmit(formData, setFormData)
 
-      router.replace(router.asPath)
+        if (!formData.feedbackDetail.text || !formData.feedbackTitle.text) return
 
-      formRef.current?.reset()
-      setFormData(formDefaultValue)
-    } catch (e) {
-      console.warn(e)
+        try {
+          const response = await axios.post(`/api/posts/${props.id}`, formData)
+
+          alertMessage("success", response.data.message)
+
+          router.replace(router.asPath)
+
+          refetchData()
+        } catch (e) {
+          console.warn(e)
+        }
+        break
+
+      case "delete-feedback":
+        try {
+          const response = await axios.delete(`/api/posts/${props.id}`)
+
+          refetchData()
+
+          router.push("/")
+          alertMessage("success", response.data.message)
+        } catch (e) {
+          console.log(e)
+        }
+        break
+
+      default:
+        alertMessage("warning", "There was an error...")
     }
   }
 
@@ -91,7 +123,7 @@ const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
     <EditFeedbackContainer>
       <EditFeedbackWrapper>
         <GoBackWrapper>
-          <Link href="/">
+          <Link href="#" onClick={() => router.back()}>
             <CaretLeft size={15} color="#4661E6" weight="bold" /> Go Back
           </Link>
         </GoBackWrapper>
@@ -112,16 +144,9 @@ const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
               <Text model="labelTitle">Feedback Title</Text>
               <Text model="description">Add a short, descriptive headline</Text>
               <input
-                defaultValue={props.data?.title}
+                defaultValue={formData.feedbackTitle.text}
                 onChange={(e) =>
-                  handleGetInputValue(
-                    e,
-                    "feedbackTitle",
-                    setFormData,
-                    formData,
-                    selectStatus,
-                    selectCategory
-                  )
+                  handleGetInputValue(e, "feedbackTitle", setFormData, formData)
                 }
                 type="text"
               />
@@ -156,7 +181,19 @@ const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
               >
                 {categories.map((category) => {
                   return (
-                    <li key={category} onClick={() => setSelectCategory(category)}>
+                    <li
+                      key={category}
+                      onClick={() => {
+                        setSelectCategory(category)
+                        handleGetInputValue(
+                          undefined,
+                          "feedbackCategory",
+                          setFormData,
+                          formData,
+                          category
+                        )
+                      }}
+                    >
                       {category}
 
                       {category === selectCategory && <CheckedIcon />}
@@ -192,7 +229,20 @@ const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
               >
                 {status.map((category) => {
                   return (
-                    <li key={category} onClick={() => setSelectStatus(category)}>
+                    <li
+                      key={category}
+                      onClick={() => {
+                        setSelectStatus(category)
+
+                        handleGetInputValue(
+                          undefined,
+                          "feedbackStatus",
+                          setFormData,
+                          formData,
+                          category
+                        )
+                      }}
+                    >
                       {category}
 
                       {category === selectStatus && <CheckedIcon />}
@@ -208,23 +258,21 @@ const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
                 Include any specific comments on what should be improved, added, etc.
               </Text>
               <textarea
-                defaultValue={props.data?.description}
+                defaultValue={formData.feedbackDetail.text}
                 onChange={(e) =>
-                  handleGetInputValue(
-                    e,
-                    "feedbackDetail",
-                    setFormData,
-                    formData,
-                    selectStatus,
-                    selectCategory
-                  )
+                  handleGetInputValue(e, "feedbackDetail", setFormData, formData)
                 }
               />
               {formData.feedbackDetail.error && <p>Can&apos; t be empty!</p>}
             </label>
 
             <SaveChangesButtonWrapper>
-              <button type="submit">Save Changes</button>
+              <Button name="delete-feedback" model="delete" type="submit">
+                Delete
+              </Button>
+              <Button name="save-changes" model="saveChanges" type="submit">
+                Save Changes
+              </Button>
             </SaveChangesButtonWrapper>
           </EditFeedbackForm>
         </EditFeedbackCard>

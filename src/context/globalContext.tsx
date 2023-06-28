@@ -1,7 +1,7 @@
 import axios from "axios"
-import { createContext } from "react"
+import { createContext, useState } from "react"
 import { useQuery } from "react-query"
-import { IContext } from "../../types"
+import { IContext, IForm } from "../../types"
 
 interface Props {
   children: React.ReactNode
@@ -43,7 +43,12 @@ const GlobalStorage = ({ children }: Props) => {
 
   return (
     <GlobalContext.Provider
-      value={{ data, refetchData, isLoading, formDefaultValue }}
+      value={{
+        data,
+        refetchData,
+        isLoading,
+        formDefaultValue,
+      }}
     >
       {children}
     </GlobalContext.Provider>

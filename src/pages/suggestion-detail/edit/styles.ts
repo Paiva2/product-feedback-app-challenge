@@ -179,21 +179,31 @@ export const DropdownButton = styled("button", {
 export const SaveChangesButtonWrapper = styled("div", {
   display: "flex",
   alignItems: "center",
-  justifyContent: "center",
+  justifyContent: "space-between",
   width: "100%",
+})
 
-  button: {
-    all: "unset",
-    color: "#fff",
-    fontWeight: "700",
-    backgroundColor: "#ad1fea",
-    pd: ".625rem 1.25rem",
-    br: "10px",
-    cursor: "pointer",
-    transition: ".3s ease-in-out",
+export const Button = styled("button", {
+  all: "unset",
+  color: "#fff",
+  fontWeight: "700",
+  pd: ".625rem 1.25rem",
+  br: "10px",
+  cursor: "pointer",
+  transition: ".3s ease-in-out",
 
-    "&:hover": {
-      backgroundColor: "#C75AF6",
+  "&:hover": {
+    opacity: ".7",
+  },
+
+  variants: {
+    model: {
+      delete: {
+        backgroundColor: "#d73737",
+      },
+      saveChanges: {
+        backgroundColor: "#ad1fea",
+      },
     },
   },
 })
