@@ -168,10 +168,10 @@ const SuggestionDetail = (props: { id: string }) => {
               </ReplySectionContaner>
             </CommentInformations>
 
-            {postData?.comment?.map((content) => {
-              return (
-                <Fragment key={content.id}>
-                  <CommentWrapper>
+            <CommentInformations>
+              {postData?.comment?.map((content) => {
+                return (
+                  <CommentWrapper key={content.id}>
                     <CommentImage>
                       <Image
                         width={40}
@@ -209,9 +209,46 @@ const SuggestionDetail = (props: { id: string }) => {
                       )}
                     </Comment>
                   </CommentWrapper>
-                </Fragment>
-              )
-            })}
+                )
+              })}
+              {postData.reply.map((replies) => {
+                return (
+                  <ReplySectionContaner key={replies.id}>
+                    <div>
+                      <ReplyImage>
+                        <Image
+                          width={40}
+                          height={40}
+                          alt="User profile"
+                          src="https://i.postimg.cc/L8LCLyJd/image-elijah.jpg"
+                        />
+                      </ReplyImage>
+                      <Reply>
+                        <UserInformations>
+                          <Username>
+                            <Text model="user">Elijah Moss</Text>
+                            <Text model="username">@hexagon.bestagon</Text>
+                          </Username>
+
+                          <button>Reply</button>
+                        </UserInformations>
+
+                        <Text model="comment">
+                          Also, please allow styles to be applied based on system
+                          preferences. I would love to be able to browse Frontend
+                          Mentor in the evening after my devices dark mode turns on
+                          without the bright background it currently has.
+                        </Text>
+                        <ReplyArea>
+                          <textarea placeholder="Type your reply here!" />
+                          <button type="button">Reply</button>
+                        </ReplyArea>
+                      </Reply>
+                    </div>
+                  </ReplySectionContaner>
+                )
+              })}
+            </CommentInformations>
           </CommentSectionWrapper>
 
           <NewCommentContainer>

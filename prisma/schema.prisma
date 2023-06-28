@@ -24,13 +24,13 @@ model Posts {
   category    String
   comment     Comment[]
   status      String?
-  Reply       Reply[]
+  reply       Reply[]
   upVoted     Boolean   @default(false)
 }
 
 model Comment {
   id          Int      @id @default(autoincrement())
-  iconImage   String?
+  iconImage   String
   name        String
   username    String
   description String   @db.VarChar(250)
@@ -43,14 +43,14 @@ model Comment {
 
 model Reply {
   id          Int      @id @default(autoincrement())
-  iconImage   String?
+  iconImage   String
   name        String
   username    String
   description String   @db.VarChar(250)
-  posts       Posts?   @relation(fields: [postsId], references: [id])
   postsId     Int?
   createdAt   DateTime @default(now())
-  commentId   Int?
+  commentId   Int
 
+  Posts   Posts?   @relation(fields: [postsId], references: [id])
   Comment Comment? @relation(fields: [commentId], references: [id])
 }

@@ -19,6 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     },
     include: {
       comment: true,
+      reply: true,
       _count: {
         select: { comment: true },
       },
@@ -26,19 +27,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   })
 
   if (req.method === "PATCH") {
-    const comment = await prisma.comment.findUnique({
+    const comment = await prisma.comment.findFirst({
       where: {
-        id: Number(post_id),
+        postsId: post?.id,
       },
     })
 
     await prisma.reply.create({
       data: {
-        name: "paiva",
-        username: "@paiva",
-        iconImage:
-          "https://i.postimg.cc/cC3ZKyyP/052c177ea1956fbd4b22c9ee508ee67a.jpg",
-        description: req.body.comment,
+        iconImage: "",
+        name: "",
+        username: "",
+        description: req.body.reply,
+        commentId: comment?.id,
         postsId: post?.id,
       },
     })
