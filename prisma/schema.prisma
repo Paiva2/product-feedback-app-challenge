@@ -22,10 +22,10 @@ model Posts {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   category    String
-  comment     Comment[]
   status      String?
-  reply       Reply[]
   upVoted     Boolean   @default(false)
+  comment     Comment[]
+  Reply       Reply[]
 }
 
 model Comment {
@@ -36,21 +36,24 @@ model Comment {
   description String   @db.VarChar(250)
   postsId     Int?
   createdAt   DateTime @default(now())
+  posts       Posts?   @relation(fields: [postsId], references: [id])
   replies     Reply[]
 
-  posts Posts? @relation(fields: [postsId], references: [id])
+  @@index([postsId])
 }
 
 model Reply {
   id          Int      @id @default(autoincrement())
-  iconImage   String
+  iconImage   String?
   name        String
   username    String
   description String   @db.VarChar(250)
   postsId     Int?
   createdAt   DateTime @default(now())
   commentId   Int
+  Comment     Comment  @relation(fields: [commentId], references: [id])
+  Posts       Posts?   @relation(fields: [postsId], references: [id])
 
-  Posts   Posts?   @relation(fields: [postsId], references: [id])
-  Comment Comment? @relation(fields: [commentId], references: [id])
+  @@index([commentId])
+  @@index([postsId])
 }

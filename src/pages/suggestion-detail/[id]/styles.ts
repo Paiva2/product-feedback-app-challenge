@@ -43,6 +43,7 @@ export const ReplySectionContaner = styled("div", {
     width: "90%",
     alignSelf: "flex-end",
     paddingTop: "2.1875rem",
+    paddingBottom: "2.1875rem",
   },
 })
 
@@ -149,8 +150,7 @@ export const CommentImage = styled("div", {
   display: "flex",
   flexDirection: "column",
   aligItems: "center",
-  justifyContent: "center",
-  gap: "15px",
+  gap: ".9375rem",
   position: "relative",
 
   img: {
@@ -158,7 +158,7 @@ export const CommentImage = styled("div", {
   },
 
   "&::after": {
-    content: "''",
+    content: "var(--has-reply)",
     w: "0.1px",
     h: "100%",
     backgroundColor: "rgba(100,113,150,.1)",
@@ -176,6 +176,7 @@ export const CommentInformations = styled("div", {
   display: "flex",
   flexDirection: "column",
   position: "relative",
+  gap: "1.875rem",
 
   "&:not(:last-child)": {
     paddingBottom: "1.25rem",

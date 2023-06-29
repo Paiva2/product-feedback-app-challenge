@@ -1,5 +1,5 @@
 import Suggestion from "@/components/home/Suggestion"
-import React, { Fragment, useState } from "react"
+import React, { Fragment, useRef, useState } from "react"
 import {
   Comment,
   CommentImage,
@@ -47,10 +47,12 @@ const SuggestionDetail = (props: { id: string }) => {
   const route = useRouter()
 
   const [newComment, setNewComment] = useState("")
-  const [openCommentReply, setOpenCommentReply] = useState(false)
-  const [openReplyReplies, setOpenReplyReplies] = useState(false)
+  const [openCommentReply, setOpenCommentReply] = useState<string[]>([])
+  const [openRepliesReply, setOpenRepliesReply] = useState<string[]>([])
+  const textAreaRef = useRef(null)
 
-  const [replyValue, setReplyValue] = useState("")
+  const [replyCommentFieldValue, setReplyCommentFieldValue] = useState<{}>({})
+  const [replyRepliesFieldValue, setReplyRepliesFieldValue] = useState<{}>({})
 
   const commentCount = postData?._count.comment
 
@@ -60,15 +62,84 @@ const SuggestionDetail = (props: { id: string }) => {
     refetchData()
   }
 
-  const handleNewReply = async () => {
+  const handleNewCommentReply = async (
+    commentId: string,
+    stateManager: React.Dispatch<React.SetStateAction<{}>>
+  ) => {
     const id = props.id
 
-    await axios.patch(`/api/posts/${id}`, { reply: replyValue })
+    await axios.patch(`/api/posts/${id}`, {
+      reply:
+        replyCommentFieldValue[commentId as keyof typeof replyCommentFieldValue]
+          .value,
+      commentRelation: commentId,
+    })
 
     refetchData()
+
+    stateManager((oldValue) => {
+      return {
+        ...oldValue,
+        [commentId]: {
+          value: "",
+        },
+      }
+    })
+  }
+
+  const handleNewReplyOnReplies = async (
+    commentId: string,
+    replyId: string,
+    stateManager: React.Dispatch<React.SetStateAction<{}>>
+  ) => {
+    const id = props.id
+
+    await axios.patch(`/api/posts/${id}`, {
+      reply:
+        replyRepliesFieldValue[replyId as keyof typeof replyRepliesFieldValue].value,
+      commentRelation: commentId,
+    })
+
+    refetchData()
+
+    stateManager((oldValue) => {
+      return {
+        ...oldValue,
+        [replyId]: {
+          value: "",
+        },
+      }
+    })
   }
 
   if (isLoading) return <></>
+
+  const handleOpenReplyModal = (
+    id: string,
+    state: string[],
+    stateManager: React.Dispatch<React.SetStateAction<string[]>>
+  ) => {
+    if (state.includes(id)) {
+      stateManager((oldVal) => oldVal.filter((replyDivs) => replyDivs !== id))
+    } else {
+      stateManager((oldVal) => [...oldVal, id])
+    }
+  }
+
+  const handleSetDynamicInputValue = (
+    id: string,
+    value: string,
+    stateManager: React.Dispatch<React.SetStateAction<{}>>
+  ) => {
+    stateManager((oldValue) => {
+      return {
+        ...oldValue,
+        [id]: {
+          value,
+        },
+      }
+    })
+  }
 
   return (
     <CommentsContainer>
@@ -93,7 +164,7 @@ const SuggestionDetail = (props: { id: string }) => {
               {commentCount} Comment{!!commentCount && commentCount > 1 && "s"}
             </CommentQuantity>
 
-            <CommentInformations>
+            {/*             <CommentInformations>
               <CommentWrapper>
                 <CommentImage>
                   <Image
@@ -132,7 +203,6 @@ const SuggestionDetail = (props: { id: string }) => {
                   )}
                 </Comment>
               </CommentWrapper>
-              {/* reply */}
               <ReplySectionContaner>
                 <div>
                   <ReplyImage>
@@ -166,86 +236,152 @@ const SuggestionDetail = (props: { id: string }) => {
                   </Reply>
                 </div>
               </ReplySectionContaner>
-            </CommentInformations>
+            </CommentInformations> */}
 
             <CommentInformations>
               {postData?.comment?.map((content) => {
                 return (
-                  <CommentWrapper key={content.id}>
-                    <CommentImage>
-                      <Image
-                        width={40}
-                        height={40}
-                        alt="User profile"
-                        src={content.iconImage}
-                      />
-                    </CommentImage>
-                    <Comment>
-                      <UserInformations>
-                        <Username>
-                          <Text model="user">{content.name}</Text>
-                          <Text model="username">{content.username}</Text>
-                        </Username>
-
-                        <button
-                          type="button"
-                          onClick={() => setOpenCommentReply(!openCommentReply)}
-                        >
-                          Reply
-                        </button>
-                      </UserInformations>
-
-                      <Text model="comment">{content.description}</Text>
-                      {openCommentReply && (
-                        <ReplyArea>
-                          <textarea
-                            onChange={(e) => setReplyValue(e.target.value)}
-                            placeholder="Type your reply here!"
-                          />
-                          <button onClick={handleNewReply} type="button">
-                            Reply
-                          </button>
-                        </ReplyArea>
-                      )}
-                    </Comment>
-                  </CommentWrapper>
-                )
-              })}
-              {postData.reply.map((replies) => {
-                return (
-                  <ReplySectionContaner key={replies.id}>
-                    <div>
-                      <ReplyImage>
+                  <div key={content.id}>
+                    <CommentWrapper>
+                      <CommentImage
+                        css={{
+                          "--has-reply": content.replies.length ? "''" : "",
+                        }}
+                      >
                         <Image
                           width={40}
                           height={40}
                           alt="User profile"
-                          src="https://i.postimg.cc/L8LCLyJd/image-elijah.jpg"
+                          src={content.iconImage}
                         />
-                      </ReplyImage>
-                      <Reply>
+                      </CommentImage>
+                      <Comment>
                         <UserInformations>
                           <Username>
-                            <Text model="user">Elijah Moss</Text>
-                            <Text model="username">@hexagon.bestagon</Text>
+                            <Text model="user">{content.name}</Text>
+                            <Text model="username">{content.username}</Text>
                           </Username>
 
-                          <button>Reply</button>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              handleOpenReplyModal(
+                                content.id,
+                                openCommentReply,
+                                setOpenCommentReply
+                              )
+                            }
+                          >
+                            Reply
+                          </button>
                         </UserInformations>
 
-                        <Text model="comment">
-                          Also, please allow styles to be applied based on system
-                          preferences. I would love to be able to browse Frontend
-                          Mentor in the evening after my devices dark mode turns on
-                          without the bright background it currently has.
-                        </Text>
-                        <ReplyArea>
-                          <textarea placeholder="Type your reply here!" />
-                          <button type="button">Reply</button>
-                        </ReplyArea>
-                      </Reply>
-                    </div>
-                  </ReplySectionContaner>
+                        <Text model="comment">{content.description}</Text>
+
+                        {openCommentReply.includes(content.id) && (
+                          <ReplyArea ref={textAreaRef}>
+                            <textarea
+                              value={
+                                replyCommentFieldValue[
+                                  content.id as keyof typeof replyCommentFieldValue
+                                ]?.value
+                              }
+                              onChange={(e) =>
+                                handleSetDynamicInputValue(
+                                  content.id,
+                                  e.target.value,
+                                  setReplyCommentFieldValue
+                                )
+                              }
+                              placeholder="Type your reply here!"
+                            />
+                            <button
+                              onClick={() =>
+                                handleNewCommentReply(
+                                  content.id,
+                                  setReplyCommentFieldValue
+                                )
+                              }
+                              type="button"
+                            >
+                              Reply
+                            </button>
+                          </ReplyArea>
+                        )}
+                      </Comment>
+                    </CommentWrapper>
+
+                    {content.replies.map((reply) => {
+                      return (
+                        <ReplySectionContaner key={reply.id}>
+                          <div>
+                            <ReplyImage>
+                              <Image
+                                width={40}
+                                height={40}
+                                alt="User profile"
+                                src="https://i.postimg.cc/L8LCLyJd/image-elijah.jpg"
+                              />
+                            </ReplyImage>
+                            <Reply>
+                              <UserInformations>
+                                <Username>
+                                  <Text model="user">{reply.name}</Text>
+                                  <Text model="username">{reply.username}</Text>
+                                </Username>
+
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    handleOpenReplyModal(
+                                      reply.id,
+                                      openRepliesReply,
+                                      setOpenRepliesReply
+                                    )
+                                  }
+                                >
+                                  Reply
+                                </button>
+                              </UserInformations>
+
+                              <Text model="comment">{reply.description}</Text>
+                              {openRepliesReply.includes(reply.id) && (
+                                <ReplyArea>
+                                  <textarea
+                                    value={
+                                      replyRepliesFieldValue[
+                                        reply.id as keyof typeof replyCommentFieldValue
+                                      ]?.value
+                                    }
+                                    onChange={(e) =>
+                                      handleSetDynamicInputValue(
+                                        reply.id,
+                                        e.target.value,
+                                        setReplyRepliesFieldValue
+                                      )
+                                    }
+                                    placeholder="Type your reply here!"
+                                  />
+                                  <button
+                                    onClick={() =>
+                                      handleNewReplyOnReplies(
+                                        content.id,
+                                        reply.id,
+                                        setReplyRepliesFieldValue
+                                      )
+                                    }
+                                    type="button"
+                                  >
+                                    Reply
+                                  </button>
+                                </ReplyArea>
+                              )}
+                            </Reply>
+                          </div>
+                        </ReplySectionContaner>
+                      )
+                    })}
+                  </div>
                 )
               })}
             </CommentInformations>
