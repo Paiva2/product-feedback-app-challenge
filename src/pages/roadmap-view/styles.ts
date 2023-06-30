@@ -79,6 +79,7 @@ export const CardsContainer = styled("div", {
   flexDirection: "column",
   gap: "1.5625rem",
   w: "35%",
+  alignSelf: "flex-start",
 })
 
 export const CardSectionTitleWrapper = styled("div", {})
@@ -118,7 +119,7 @@ export const Card = styled("div", {
     left: 0,
     h: ".375rem",
     br: "9999px",
-    backgroundColor: "#f49f85",
+    backgroundColor: "var(--status-color)",
     position: "absolute",
   },
 })
@@ -135,7 +136,7 @@ export const CategoryPin = styled("span", {
     w: ".4375rem",
     h: ".4375rem",
     br: "9999px",
-    backgroundColor: "#f49f85",
+    backgroundColor: "var(--status-color)",
   },
 })
 

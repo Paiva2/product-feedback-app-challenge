@@ -178,8 +178,8 @@ export const CommentInformations = styled("div", {
   position: "relative",
   gap: "1.875rem",
 
-  "&:not(:last-child)": {
-    paddingBottom: "1.25rem",
+  ".comment-and-reply-wrapper:not(:last-child)": {
+    paddingBottom: "10px",
     borderBottom: "1px solid rgba(58,67,115,0.15)",
   },
 })

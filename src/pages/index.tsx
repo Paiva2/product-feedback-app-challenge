@@ -10,6 +10,7 @@ import Suggestion from "@/components/home/Suggestion"
 export default function Home() {
   const { data } = useContext(GlobalContext) as IContext
 
+  console.log(data)
   return (
     <Fragment>
       <Head>

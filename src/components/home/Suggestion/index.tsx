@@ -35,6 +35,8 @@ const Suggestion = ({ data }: SuggestionData) => {
     }
   }
 
+  console.log(data)
+
   return (
     <CardContainer>
       <CardWrapper>
@@ -57,7 +59,7 @@ const Suggestion = ({ data }: SuggestionData) => {
         </FeedbackResumeContainer>
 
         <CommentsQuantity>
-          <CommentsIcon /> 2
+          <CommentsIcon /> {data?.comment?.length}
         </CommentsQuantity>
       </CardWrapper>
     </CardContainer>

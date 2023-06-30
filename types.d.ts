@@ -7,13 +7,31 @@ export interface DataSchema {
   updatedAt: string
   createddAt: string
   status: string
+  _count: { comment: number }
+  comment: {
+    id: string
+    name: string
+    username: string
+    iconImage: string
+    description: string
+    postId: string
+    replies: {
+      id: string
+      commentId: string
+      postsId: string
+      description: string
+      iconImage: string
+      name: string
+      username: string
+    }[]
+  }[]
 }
 
 export interface IContext {
   data: DataSchema[]
-  refetchData: () => void
   isLoading: boolean
   formDefaultValue: IForm
+  refetchData: () => void
 }
 
 interface SuggestionData {

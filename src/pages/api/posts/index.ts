@@ -7,7 +7,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   if (req.method === "GET") {
-    const posts = await prisma.posts.findMany()
+    const posts = await prisma.posts.findMany({
+      include: {
+        comment: {
+          include: {
+            replies: true,
+          },
+        },
+        _count: {
+          select: { comment: true },
+        },
+      },
+    })
 
     return res.status(200).json(posts)
   }

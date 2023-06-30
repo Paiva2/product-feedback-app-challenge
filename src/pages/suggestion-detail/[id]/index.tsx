@@ -26,7 +26,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { GetServerSideProps } from "next"
 import axios from "axios"
-import { PostSectionData } from "../../../../types"
+import { DataSchema } from "../../../../types"
 import { ParsedUrlQuery } from "querystring"
 import { useQuery } from "react-query"
 import { useRouter } from "next/router"
@@ -40,7 +40,7 @@ const SuggestionDetail = (props: { id: string }) => {
     data: postData,
     isLoading,
     refetch: refetchData,
-  } = useQuery<PostSectionData>("specificPost", getSuggestions)
+  } = useQuery<DataSchema>("specificPost", getSuggestions)
 
   async function getSuggestions() {
     const { data } = await axios.get(`/api/posts/${props.id}`)
@@ -63,6 +63,10 @@ const SuggestionDetail = (props: { id: string }) => {
   const commentCount = postData?._count.comment
 
   const handleNewComment = async (id: number | undefined) => {
+    if (newComment === "") {
+      return alert("a")
+    }
+
     await axios.post("/api/new-comment", { id, comment: newComment })
 
     refetchData()
@@ -119,8 +123,6 @@ const SuggestionDetail = (props: { id: string }) => {
     })
   }
 
-  if (isLoading) return <></>
-
   const handleOpenReplyModal = (
     id: string,
     state: string[],
@@ -147,6 +149,8 @@ const SuggestionDetail = (props: { id: string }) => {
       }
     })
   }
+
+  if (isLoading) return <></>
 
   return (
     <CommentsContainer>
@@ -248,7 +252,7 @@ const SuggestionDetail = (props: { id: string }) => {
             <CommentInformations>
               {postData?.comment?.map((content) => {
                 return (
-                  <div key={content.id}>
+                  <div className="comment-and-reply-wrapper" key={content.id}>
                     <CommentWrapper>
                       <CommentImage
                         css={{
@@ -327,7 +331,8 @@ const SuggestionDetail = (props: { id: string }) => {
                                 width={40}
                                 height={40}
                                 alt="User profile"
-                                src="https://i.postimg.cc/L8LCLyJd/image-elijah.jpg"
+                                src="https://i.postimg.cc/mD8C6kTc/picture-profile-ic
+                                on-male-icon-human-or-people-sign-and-symbol-free-vector.jpg"
                               />
                             </ReplyImage>
                             <Reply>
