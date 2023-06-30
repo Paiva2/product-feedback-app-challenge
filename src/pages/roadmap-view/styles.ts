@@ -1,32 +1,38 @@
 import { styled } from "@/styles/stitches.config"
 
 export const RoadmapContainer = styled("div", {
-  w: "100%",
   display: "flex",
   alignItems: "center",
   flexDirection: "column",
   justifyContent: "center",
-  paddingTop: "5rem",
-  paddingBottom: "5rem",
+  maxWidth: "1300px",
+  margin: "0 auto",
+  padding: "5rem 20px",
 })
 
 export const RoadmapWrapper = styled("div", {
-  w: "55%",
   display: "flex",
   justifyContent: "center",
   flexDirection: "column",
   gap: "1.5625rem",
-  maxWidth: "75rem",
+  alignItems: "center",
 })
 
 export const Topbar = styled("div", {
   display: "flex",
   alignItems: "center",
-  justifyContent: "space-between",
+  justifyContent: "center",
   backgroundColor: "#373f68",
-  w: "100%",
   br: "10px",
-  pd: "1.5625rem 1.875rem",
+  width: "100%",
+})
+
+export const TopbarWrapper = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  width: "100%",
+  padding: "1.25rem 1.875rem",
 })
 
 export const GoBackWrapper = styled("div", {
@@ -74,6 +80,12 @@ export const NewfeedbackButtonWrapper = styled("div", {
   },
 })
 
+export const ColumnsWrapper = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  gap: "30px",
+})
+
 export const CardsContainer = styled("div", {
   display: "flex",
   flexDirection: "column",
@@ -111,6 +123,7 @@ export const Card = styled("div", {
   pd: "1.875rem 1.875rem 1.25rem 1.875rem",
   position: "relative",
   justifyContent: "space-around",
+  height: "250px",
 
   "&::before": {
     content: "''",
@@ -118,7 +131,7 @@ export const Card = styled("div", {
     top: 0,
     left: 0,
     h: ".375rem",
-    br: "9999px",
+    br: "100px 100px 0px 0px",
     backgroundColor: "var(--status-color)",
     position: "absolute",
   },
@@ -144,6 +157,8 @@ export const CardResume = styled("div", {
   display: "flex",
   flexDirection: "column",
   gap: ".625rem",
+  height: "100%",
+  overflowY: "auto",
 
   ".feature-pin": {
     span: {

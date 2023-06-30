@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useCallback, useContext, useEffect, useState } from "react"
 import {
   Card,
   CardFooter,
@@ -6,53 +6,82 @@ import {
   CardSectionTitleWrapper,
   CardsContainer,
   CategoryPin,
+  ColumnsWrapper,
   GoBackWrapper,
   NewfeedbackButtonWrapper,
   RoadmapContainer,
   RoadmapWrapper,
   Text,
   Topbar,
+  TopbarWrapper,
 } from "./styles"
 import { CaretLeft, CaretUp } from "phosphor-react"
 import Link from "next/link"
 import CommentsIcon from "@/components/icons/CommentsIcon"
 import { useRouter } from "next/router"
 import { GlobalContext } from "@/context/globalContext"
+import { DataSchema } from "../../../types"
+
+interface ColumnsSchema {
+  planned: DataSchema[]
+  inProgress: DataSchema[]
+  live: DataSchema[]
+}
 
 const RoadmapView = () => {
   const route = useRouter()
   const { data } = useContext(GlobalContext)
+  const [columnsStatus, setColumnsStatus] = useState<ColumnsSchema>({
+    planned: [],
+    inProgress: [],
+    live: [],
+  })
 
-  const plannedSuggestions = data?.filter(
-    (suggestion) => suggestion.status === "Planned"
-  )
+  const handleGetSuggestionsStatus = useCallback(() => {
+    data?.forEach((suggestion) => {
+      if (suggestion.status === "Planned") {
+        setColumnsStatus((oldValue) => ({
+          ...oldValue,
+          planned: [...oldValue.planned, suggestion],
+        }))
+      } else if (suggestion.status === "In-Progress") {
+        setColumnsStatus((oldValue) => ({
+          ...oldValue,
+          inProgress: [...oldValue.inProgress, suggestion],
+        }))
+      } else if (suggestion.status === "Live") {
+        setColumnsStatus((oldValue) => ({
+          ...oldValue,
+          live: [...oldValue.live, suggestion],
+        }))
+      }
+    })
+  }, [data])
 
-  const inProgressSuggestions = data?.filter(
-    (suggestion) => suggestion.status === "In-Progress"
-  )
-
-  const liveSuggestions = data?.filter((suggestion) => suggestion.status === "Live")
+  useEffect(() => {
+    handleGetSuggestionsStatus()
+  }, [data, handleGetSuggestionsStatus])
 
   const columns = [
     {
       id: 1,
       columnTitle: "Planned",
       description: "Ideas prioritized for research",
-      status: plannedSuggestions,
+      status: columnsStatus.planned,
       color: "#f49f85",
     },
     {
       id: 2,
       columnTitle: "In-Progress",
       description: "Currently being developed",
-      status: inProgressSuggestions,
+      status: columnsStatus.inProgress,
       color: "#ad1fea",
     },
     {
       id: 3,
       columnTitle: "Live ",
       description: "Released features",
-      status: liveSuggestions,
+      status: columnsStatus.live,
       color: "#62bcfa",
     },
   ]
@@ -61,28 +90,23 @@ const RoadmapView = () => {
     <RoadmapContainer>
       <RoadmapWrapper>
         <Topbar>
-          <GoBackWrapper>
-            <span>
-              <CaretLeft size={15} weight="bold" />
-              <Link href="/">Go back</Link>
-            </span>
-            <p>Roadmap</p>
-          </GoBackWrapper>
+          <TopbarWrapper>
+            <GoBackWrapper>
+              <span>
+                <CaretLeft size={15} weight="bold" />
+                <Link href="/">Go back</Link>
+              </span>
+              <p>Roadmap</p>
+            </GoBackWrapper>
 
-          <NewfeedbackButtonWrapper>
-            <button onClick={() => route.push("/new-feedback")}>
-              + Add Feedback
-            </button>
-          </NewfeedbackButtonWrapper>
+            <NewfeedbackButtonWrapper>
+              <button onClick={() => route.push("/new-feedback")}>
+                + Add Feedback
+              </button>
+            </NewfeedbackButtonWrapper>
+          </TopbarWrapper>
         </Topbar>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "20px",
-            width: "100%",
-          }}
-        >
+        <ColumnsWrapper>
           {columns?.map((column) => {
             return (
               <CardsContainer key={column.id}>
@@ -128,7 +152,7 @@ const RoadmapView = () => {
               </CardsContainer>
             )
           })}
-        </div>
+        </ColumnsWrapper>
       </RoadmapWrapper>
     </RoadmapContainer>
   )
