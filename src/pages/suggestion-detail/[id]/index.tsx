@@ -31,6 +31,10 @@ import { ParsedUrlQuery } from "querystring"
 import { useQuery } from "react-query"
 import { useRouter } from "next/router"
 
+interface DynamicStateValues {
+  [key: string]: { value: string }
+}
+
 const SuggestionDetail = (props: { id: string }) => {
   const {
     data: postData,
@@ -51,8 +55,10 @@ const SuggestionDetail = (props: { id: string }) => {
   const [openRepliesReply, setOpenRepliesReply] = useState<string[]>([])
   const textAreaRef = useRef(null)
 
-  const [replyCommentFieldValue, setReplyCommentFieldValue] = useState<{}>({})
-  const [replyRepliesFieldValue, setReplyRepliesFieldValue] = useState<{}>({})
+  const [replyCommentFieldValue, setReplyCommentFieldValue] =
+    useState<DynamicStateValues>({})
+  const [replyRepliesFieldValue, setReplyRepliesFieldValue] =
+    useState<DynamicStateValues>({})
 
   const commentCount = postData?._count.comment
 
@@ -60,6 +66,7 @@ const SuggestionDetail = (props: { id: string }) => {
     await axios.post("/api/new-comment", { id, comment: newComment })
 
     refetchData()
+    setNewComment("")
   }
 
   const handleNewCommentReply = async (
@@ -391,6 +398,7 @@ const SuggestionDetail = (props: { id: string }) => {
             <p>Add Comment</p>
 
             <textarea
+              value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
               placeholder="Type your comment here!"
             />

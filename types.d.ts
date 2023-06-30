@@ -50,6 +50,15 @@ export interface PostSectionData extends DataSchema {
       description: string
       postsId: number
       createdAt: string
+      replies: {
+        id: string
+        commentId: string
+        postsId: string
+        description: string
+        iconImage: string
+        name: string
+        username: string
+      }[]
     }
   ]
 }
