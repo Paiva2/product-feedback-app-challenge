@@ -6,6 +6,7 @@ import SuggestionsBar from "@/components/home/SuggestionsBar"
 import { GlobalContext } from "@/context/globalContext"
 import { IContext } from "../../types"
 import Suggestion from "@/components/home/Suggestion"
+import NotFound from "@/components/icons/NotFound"
 
 export default function Home() {
   const { data } = useContext(GlobalContext) as IContext
@@ -32,9 +33,10 @@ export default function Home() {
         >
           <SuggestionsBar />
 
+          {/* 
           {data?.map((suggestion) => (
             <Suggestion key={suggestion.id} data={suggestion} />
-          ))}
+          ))} */}
         </div>
       </HomeContainer>
     </Fragment>
