@@ -9,7 +9,7 @@ import Suggestion from "@/components/home/Suggestion"
 import SuggestionNotFound from "@/components/SuggestionNotFound"
 
 export default function Home() {
-  const { dataSortedBy, isLoading } = useContext(GlobalContext) as IContext
+  const { dataSortedByCategory, isLoading } = useContext(GlobalContext) as IContext
 
   return (
     <Fragment>
@@ -22,12 +22,11 @@ export default function Home() {
         <SideFilters />
         <MiddleSection>
           <SuggestionsBar />
-
-          {!dataSortedBy?.length && !isLoading && <SuggestionNotFound />}
-
           {isLoading && <h1>Loading...</h1>}
 
-          {dataSortedBy?.map((suggestion) => (
+          {!dataSortedByCategory?.length && !isLoading && <SuggestionNotFound />}
+
+          {dataSortedByCategory?.map((suggestion) => (
             <Suggestion key={suggestion.id} data={suggestion} />
           ))}
         </MiddleSection>

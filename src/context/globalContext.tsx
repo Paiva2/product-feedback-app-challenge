@@ -10,8 +10,7 @@ interface Props {
 export const GlobalContext = createContext<IContext>({} as any)
 
 const GlobalStorage = ({ children }: Props) => {
-  const [dataCategoryFiltered, setDataCategoryFiltered] = useState()
-
+  const [dataCategoryFiltered, setDataCategoryFiltered] = useState("All")
   const [selectedFilter, setSelectedFilter] = useState("Most Upvotes")
 
   const {
@@ -22,36 +21,76 @@ const GlobalStorage = ({ children }: Props) => {
     refetchOnWindowFocus: false,
   })
 
-  const [dataSortedBy, setDataSortedBy] = useState<DataSchema[] | undefined>()
+  const [dataSortedByCategory, setDataSortedByCategory] = useState<
+    DataSchema[] | undefined
+  >(suggestionsData && suggestionsData)
 
   async function getSuggestions() {
     const { data } = await axios.get<DataSchema[]>("/api/posts")
 
-    setDataSortedBy(data?.sort((a, b) => b.upVotes - a.upVotes))
+    setDataSortedByCategory(data.sort((a, b) => b.upVotes - a.upVotes))
 
-    return data
+    return data.sort((a, b) => b.upVotes - a.upVotes)
   }
 
   const handleSortByFilter = (filter: string) => {
     switch (filter) {
       case "Most Upvotes":
-        setDataSortedBy(suggestionsData?.sort((a, b) => b.upVotes - a.upVotes))
+        setDataSortedByCategory(
+          dataSortedByCategory?.sort((a, b) => b.upVotes - a.upVotes)
+        )
         break
       case "Least Upvotes":
-        setDataSortedBy(suggestionsData?.sort((a, b) => a.upVotes - b.upVotes))
+        setDataSortedByCategory(
+          dataSortedByCategory?.sort((a, b) => a.upVotes - b.upVotes)
+        )
         break
       case "Most Comments":
-        setDataSortedBy(
-          suggestionsData?.sort((a, b) => b.comment.length - a.comment.length)
+        setDataSortedByCategory(
+          dataSortedByCategory?.sort((a, b) => b.comment.length - a.comment.length)
         )
         break
       case "Least Comments":
-        setDataSortedBy(
-          suggestionsData?.sort((a, b) => a.comment.length - b.comment.length)
+        setDataSortedByCategory(
+          dataSortedByCategory?.sort((a, b) => a.comment.length - b.comment.length)
         )
         break
       default:
         null
+    }
+  }
+
+  const filterGenerator = (filter: string, state: any, stateKey?: string) => {
+    const formattedFilter = state?.filter(
+      (itemToFilter) => itemToFilter[stateKey] === filter
+    )
+
+    return formattedFilter
+  }
+
+  const handleSortCategoryFilter = (category: string) => {
+    switch (category) {
+      case "All":
+        setDataSortedByCategory(suggestionsData)
+        break
+      case "UI":
+        setDataSortedByCategory(filterGenerator("UI", suggestionsData, "category"))
+        break
+      case "Enhancement":
+        setDataSortedByCategory(
+          filterGenerator("Enhancement", suggestionsData, "category")
+        )
+        break
+      case "Feature":
+        setDataSortedByCategory(
+          filterGenerator("Feature", suggestionsData, "category")
+        )
+        break
+      case "Bug":
+        setDataSortedByCategory(filterGenerator("Bug", suggestionsData, "category"))
+        break
+      default:
+        setDataSortedByCategory(suggestionsData)
     }
   }
 
@@ -80,12 +119,16 @@ const GlobalStorage = ({ children }: Props) => {
         suggestionsData,
         isLoading,
         formDefaultValue,
-        dataSortedBy,
+        dataSortedByCategory,
         selectedFilter,
+        dataCategoryFiltered,
+        handleSortCategoryFilter,
+        filterGenerator,
+        setDataCategoryFiltered,
         handleSortByFilter,
         setSelectedFilter,
         refetchData,
-        setDataSortedBy,
+        setDataSortedByCategory,
       }}
     >
       {children}

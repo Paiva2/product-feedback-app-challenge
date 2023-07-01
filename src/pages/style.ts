@@ -5,8 +5,8 @@ export const HomeContainer = styled("main", {
   width: "100%",
   justifyContent: "center",
   alignItems: "center",
-  paddingTop: "6.25rem",
-  paddingBottom: "3.125rem",
+  paddingTop: "4rem",
+  paddingBottom: "3rem",
   gap: "1.875rem",
 })
 

@@ -29,7 +29,7 @@ import { ParsedUrlQuery } from "querystring"
 import { useRouter } from "next/router"
 
 const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
-  const { refetchData } = useContext(GlobalContext)
+  const { refetchData, isLoading } = useContext(GlobalContext)
 
   const router = useRouter()
 
@@ -123,11 +123,13 @@ const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
     }
   }
 
+  if (isLoading) return <></>
+
   return (
     <EditFeedbackContainer>
       <EditFeedbackWrapper>
         <GoBackWrapper>
-          <Link href="#" onClick={() => router.back()}>
+          <Link href="#" onClick={() => window?.history.back()}>
             <CaretLeft size={15} color="#4661E6" weight="bold" /> Go Back
           </Link>
         </GoBackWrapper>

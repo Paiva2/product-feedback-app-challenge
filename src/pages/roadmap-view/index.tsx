@@ -22,38 +22,30 @@ import { useRouter } from "next/router"
 import { GlobalContext } from "@/context/globalContext"
 
 const RoadmapView = () => {
-  const { suggestionsData, isLoading } = useContext(GlobalContext)
+  const { suggestionsData, isLoading, filterGenerator } = useContext(GlobalContext)
 
   const route = useRouter()
-
-  const filterColumnStatus = (status: string) => {
-    const filteredStatus = suggestionsData?.filter(
-      (suggestion) => suggestion.status === status
-    )
-
-    return filteredStatus
-  }
 
   const columns = [
     {
       id: 1,
       columnTitle: "Planned",
       description: "Ideas prioritized for research",
-      status: filterColumnStatus("Planned"),
+      status: filterGenerator("Planned", suggestionsData, "status"),
       color: "f49f85",
     },
     {
       id: 2,
       columnTitle: "In-Progress",
       description: "Currently being developed",
-      status: filterColumnStatus("In-Progress"),
+      status: filterGenerator("In-Progress", suggestionsData, "status"),
       color: "ad1fea",
     },
     {
       id: 3,
       columnTitle: "Live ",
       description: "Released features",
-      status: filterColumnStatus("Live"),
+      status: filterGenerator("Live", suggestionsData, "status"),
       color: "62bcfa",
     },
   ]

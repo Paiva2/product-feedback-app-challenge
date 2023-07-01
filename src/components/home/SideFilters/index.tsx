@@ -17,7 +17,6 @@ import { GlobalContext } from "@/context/globalContext"
 import { IContext } from "../../../../types"
 
 const SideFilters = () => {
-  const [selectedFilter, setSelectedFilter] = useState("All")
   const filters = ["All", "UI", "Enhancement", "Feature", "Bug"]
 
   let counter = {
@@ -26,9 +25,15 @@ const SideFilters = () => {
     live: 0,
   }
 
-  const { dataSortedBy, isLoading } = useContext(GlobalContext) as IContext
+  const {
+    suggestionsData,
+    isLoading,
+    dataCategoryFiltered,
+    setDataCategoryFiltered,
+    handleSortCategoryFilter,
+  } = useContext(GlobalContext) as IContext
 
-  dataSortedBy?.forEach((suggestion) => {
+  suggestionsData?.forEach((suggestion) => {
     if (suggestion.status === "Planned") {
       counter.planned += 1
     } else if (suggestion.status === "In-Progress") {
@@ -51,12 +56,14 @@ const SideFilters = () => {
         {filters.map((filter) => {
           return (
             <FilterButton
-              onClick={() => setSelectedFilter(filter)}
+              onClick={() => {
+                setDataCategoryFiltered(filter), handleSortCategoryFilter(filter)
+              }}
               css={{
                 "--active-filter-bg":
-                  selectedFilter === filter ? "#4661e6" : "#f2f4ff",
+                  dataCategoryFiltered === filter ? "#4661e6" : "#f2f4ff",
                 "--active-filter-color":
-                  selectedFilter === filter ? "#fff" : "#4661e6",
+                  dataCategoryFiltered === filter ? "#fff" : "#4661e6",
               }}
               key={filter}
             >

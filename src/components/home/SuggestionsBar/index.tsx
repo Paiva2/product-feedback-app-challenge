@@ -23,7 +23,7 @@ const SuggestionsBar = () => {
     selectedFilter,
     setSelectedFilter,
     handleSortByFilter,
-    dataSortedBy,
+    dataSortedByCategory,
     isLoading,
   } = useContext(GlobalContext) as IContext
 
@@ -45,7 +45,7 @@ const SuggestionsBar = () => {
           <Suggestions>
             <LightIcon />
 
-            <p>{dataSortedBy.length} Suggestions</p>
+            <p>{dataSortedByCategory?.length} Suggestions</p>
           </Suggestions>
 
           <SortBy>
