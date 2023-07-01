@@ -15,7 +15,7 @@ const GlobalStorage = ({ children }: Props) => {
   const [selectedFilter, setSelectedFilter] = useState("Most Upvotes")
 
   const {
-    data,
+    data: suggestionsData,
     isLoading,
     refetch: refetchData,
   } = useQuery<DataSchema[]>("suggestions", getSuggestions, {
@@ -35,16 +35,20 @@ const GlobalStorage = ({ children }: Props) => {
   const handleSortByFilter = (filter: string) => {
     switch (filter) {
       case "Most Upvotes":
-        setDataSortedBy(data?.sort((a, b) => b.upVotes - a.upVotes))
+        setDataSortedBy(suggestionsData?.sort((a, b) => b.upVotes - a.upVotes))
         break
       case "Least Upvotes":
-        setDataSortedBy(data?.sort((a, b) => a.upVotes - b.upVotes))
+        setDataSortedBy(suggestionsData?.sort((a, b) => a.upVotes - b.upVotes))
         break
       case "Most Comments":
-        setDataSortedBy(data?.sort((a, b) => b.comment.length - a.comment.length))
+        setDataSortedBy(
+          suggestionsData?.sort((a, b) => b.comment.length - a.comment.length)
+        )
         break
       case "Least Comments":
-        setDataSortedBy(data?.sort((a, b) => a.comment.length - b.comment.length))
+        setDataSortedBy(
+          suggestionsData?.sort((a, b) => a.comment.length - b.comment.length)
+        )
         break
       default:
         null
@@ -73,7 +77,7 @@ const GlobalStorage = ({ children }: Props) => {
   return (
     <GlobalContext.Provider
       value={{
-        data,
+        suggestionsData,
         isLoading,
         formDefaultValue,
         dataSortedBy,

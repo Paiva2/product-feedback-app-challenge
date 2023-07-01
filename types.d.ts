@@ -28,7 +28,7 @@ export interface DataSchema {
 }
 
 export interface IContext {
-  data: DataSchema[] | undefined
+  suggestionsData: DataSchema[] | undefined
   isLoading: boolean
   formDefaultValue: IForm
   dataSortedBy: DataSchema[] | undefined

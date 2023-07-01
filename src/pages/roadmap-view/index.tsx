@@ -20,71 +20,44 @@ import Link from "next/link"
 import CommentsIcon from "@/components/icons/CommentsIcon"
 import { useRouter } from "next/router"
 import { GlobalContext } from "@/context/globalContext"
-import { DataSchema } from "../../../types"
-
-interface ColumnsSchema {
-  planned: DataSchema[]
-  inProgress: DataSchema[]
-  live: DataSchema[]
-}
 
 const RoadmapView = () => {
   const route = useRouter()
-  const { data } = useContext(GlobalContext)
-  const [columnsStatus, setColumnsStatus] = useState<ColumnsSchema>({
-    planned: [],
-    inProgress: [],
-    live: [],
-  })
+  const { suggestionsData, isLoading } = useContext(GlobalContext)
 
-  const handleGetSuggestionsStatus = useCallback(() => {
-    data?.forEach((suggestion) => {
-      if (suggestion.status === "Planned") {
-        setColumnsStatus((oldValue) => ({
-          ...oldValue,
-          planned: [...oldValue.planned, suggestion],
-        }))
-      } else if (suggestion.status === "In-Progress") {
-        setColumnsStatus((oldValue) => ({
-          ...oldValue,
-          inProgress: [...oldValue.inProgress, suggestion],
-        }))
-      } else if (suggestion.status === "Live") {
-        setColumnsStatus((oldValue) => ({
-          ...oldValue,
-          live: [...oldValue.live, suggestion],
-        }))
-      }
-    })
-  }, [data])
+  const filterColumnStatus = (status: string) => {
+    const filteredStatus = suggestionsData?.filter(
+      (suggestion) => suggestion.status === status
+    )
 
-  useEffect(() => {
-    handleGetSuggestionsStatus()
-  }, [data, handleGetSuggestionsStatus])
+    return filteredStatus
+  }
 
   const columns = [
     {
       id: 1,
       columnTitle: "Planned",
       description: "Ideas prioritized for research",
-      status: columnsStatus.planned,
-      color: "#f49f85",
+      status: filterColumnStatus("Planned"),
+      color: "f49f85",
     },
     {
       id: 2,
       columnTitle: "In-Progress",
       description: "Currently being developed",
-      status: columnsStatus.inProgress,
-      color: "#ad1fea",
+      status: filterColumnStatus("In-Progress"),
+      color: "ad1fea",
     },
     {
       id: 3,
       columnTitle: "Live ",
       description: "Released features",
-      status: columnsStatus.live,
-      color: "#62bcfa",
+      status: filterColumnStatus("Live"),
+      color: "62bcfa",
     },
   ]
+
+  if (isLoading) return <></>
 
   return (
     <RoadmapContainer>
@@ -118,13 +91,12 @@ const RoadmapView = () => {
                 {column?.status?.map((suggestion) => {
                   return (
                     <Card
-                      css={{ "--status-color": column.color }}
+                      css={{ "--status-color": `#${column.color}` }}
                       key={suggestion.id}
                     >
-                      <CategoryPin css={{ "--status-color": column.color }}>
+                      <CategoryPin css={{ "--status-color": `#${column.color}` }}>
                         {suggestion?.status}
                       </CategoryPin>
-
                       <CardResume
                         onClick={() =>
                           route.push(`/suggestion-detail/${suggestion.id}`)
