@@ -9,6 +9,11 @@ export const CommentsContainer = styled("div", {
   paddingTop: "6.25rem",
   paddingBottom: "6.25rem",
   gap: "1.875rem",
+
+  "@sm": {
+    paddingTop: "1.5rem",
+    paddingBottom: "1.5rem",
+  },
 })
 
 export const CommentsWrapper = styled("div", {
@@ -18,6 +23,10 @@ export const CommentsWrapper = styled("div", {
   gap: ".9375rem",
   maxWidth: "1200px",
   alignSelf: "flex-start",
+
+  "@media(max-width: 940px)": {
+    width: "92%",
+  },
 })
 
 export const ReplySectionContaner = styled("div", {
@@ -44,6 +53,10 @@ export const ReplySectionContaner = styled("div", {
     alignSelf: "flex-end",
     paddingTop: "2.1875rem",
     paddingBottom: "2.1875rem",
+
+    "@sm": {
+      gap: ".625rem",
+    },
   },
 })
 
@@ -96,6 +109,10 @@ export const CommentQuantity = styled("p", {
   color: "#3a4374",
   fontWeight: "700",
   fontSize: "1.125rem",
+
+  "@sm": {
+    fontSize: "1rem",
+  },
 })
 
 export const CommentSectionWrapper = styled("div", {
@@ -104,6 +121,10 @@ export const CommentSectionWrapper = styled("div", {
   gap: "1.25rem",
   flexDirection: "column",
   backgroundColor: "#fff",
+
+  "@sm": {
+    pd: "1.25rem",
+  },
 })
 
 export const Comment = styled("div", {
@@ -118,11 +139,23 @@ export const Reply = styled("div", {
   flexDirection: "column",
   gap: ".9375rem",
   w: "100%",
+
+  "@sm": {
+    w: "85%",
+
+    textAreA: {
+      fontSize: ".8125rem",
+    },
+  },
 })
 
 export const CommentWrapper = styled("div", {
   display: "flex",
   gap: "1.5625rem",
+
+  "@sm": {
+    gap: ".625rem",
+  },
 })
 
 export const Text = styled("p", {
@@ -146,6 +179,10 @@ export const Text = styled("p", {
       },
       comment: {
         fontSize: ".9375rem",
+
+        "@sm": {
+          fontSize: ".8125rem",
+        },
       },
     },
   },
@@ -206,6 +243,10 @@ export const UserInformations = styled("div", {
     color: "#4661e6",
     fontWeight: "700",
 
+    "@sm": {
+      fontSize: ".8125rem",
+    },
+
     "&:hover": {
       textDecoration: "underline",
     },
@@ -242,12 +283,25 @@ export const NewCommentContainer = styled("div", {
     "&:focus": {
       outline: "1px solid #4661e6",
     },
+
+    "@sm": {
+      width: "auto",
+      fontSize: ".8125rem",
+    },
   },
 
   p: {
     color: "#3a4374",
     fontWeight: "700",
     fontSize: "1.125rem",
+
+    "@sm": {
+      fontSize: "1rem",
+    },
+  },
+
+  "@sm": {
+    pd: ".625rem .9375rem",
   },
 })
 
@@ -271,12 +325,16 @@ export const PostComment = styled("div", {
     "&:hover": {
       backgroundColor: "#C75AF6",
     },
+
+    "@sm": {
+      pd: ".625rem 1.5625rem",
+    },
   },
 
   p: {
-    color: "#647196 !important",
-    fontSize: ".875rem !important",
-    fontWeight: "400 !important",
+    color: "#647196",
+    fontSize: ".8125rem",
+    fontWeight: "400",
   },
 })
 
@@ -317,6 +375,11 @@ export const ReplyArea = styled("div", {
     "&:hover": {
       backgroundColor: "#C75AF6",
     },
+
+    "@sm": {
+      padding: "10px 25px",
+      fontSize: ".75rem",
+    },
   },
 
   textArea: {
@@ -334,6 +397,10 @@ export const ReplyArea = styled("div", {
 
     "&:focus": {
       outline: "1px solid #4661e6",
+    },
+
+    "@sm": {
+      fontSize: ".8125rem",
     },
   },
 })

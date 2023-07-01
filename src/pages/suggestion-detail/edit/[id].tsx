@@ -84,6 +84,10 @@ const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
 
     switch (actionButtonName.name) {
       case "save-changes":
+        if (Number(props.id) < 4) {
+          return alertMessage("error", "You can't edit feedback examples :p")
+        }
+
         checkFormErrorsOnSubmit(formData, setFormData)
 
         if (!formData.feedbackDetail.text || !formData.feedbackTitle.text) return

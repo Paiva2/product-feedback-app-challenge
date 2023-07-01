@@ -28,7 +28,7 @@ export const SuggestionsController = styled("div", {
   alignItems: "center",
   color: "#fff",
   gap: "3.125rem",
-  w: "75%",
+  w: "65%",
 
   span: {
     display: "flex",
@@ -41,7 +41,7 @@ export const SortBy = styled("div", {
   alignItems: "center",
   gap: ".3125rem",
   position: "relative",
-  w: "35%",
+  w: "45%",
 
   svg: {
     transform: "rotate(0deg)",

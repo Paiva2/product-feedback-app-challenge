@@ -1,10 +1,38 @@
 import { styled } from "@/styles/stitches.config"
 
-export const FiltersWrapper = styled("div", {
+export const FilterContainer = styled("div", {
   alignSelf: "flex-start",
   display: "flex",
   flexDirection: "column",
+
+  "@media(max-width: 940px)": {
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+})
+
+export const FilterWrapper = styled("div", {
+  display: "flex",
+  flexDirection: "column",
   gap: ".9375rem",
+
+  "@media(max-width: 940px)": {
+    display: "flex",
+    alignItems: "center",
+    width: "90%",
+    gap: ".625rem",
+    flexDirection: "row",
+  },
+})
+
+export const GradientCardWrapper = styled("div", {
+  "@media(max-width: 940px)": {
+    display: "flex",
+    flexDirection: "column",
+    alignSelf: "flex-end",
+  },
 })
 
 export const TopCard = styled("div", {
@@ -17,6 +45,13 @@ export const TopCard = styled("div", {
 
   "&:hover": {
     opacity: ".9",
+  },
+
+  "@media(max-width: 940px)": {
+    display: "flex",
+    minWidth: "12.5rem",
+    minHeight: "7.5rem",
+    pd: "2.1875rem 0px 1.5625rem 1.5625rem",
   },
 })
 
@@ -38,6 +73,15 @@ export const TopText = styled("p", {
   },
 })
 
+export const FilterButtonsWrapper = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  width: "100%",
+  alignSelf: "flex-start",
+  gap: ".9375rem",
+  flexWrap: "wrap",
+})
+
 export const Filters = styled("div", {
   display: "flex",
   flexWrap: "wrap",
@@ -46,6 +90,14 @@ export const Filters = styled("div", {
   background: "#fff",
   gap: ".625rem",
   maxWidth: "15.625rem",
+
+  "@media(max-width: 940px)": {
+    maxWith: "unset",
+    flex: "1",
+    minHeight: "7.5rem",
+    maxHeight: "7.5rem",
+    maxWidth: "unset",
+  },
 })
 
 export const FilterButton = styled("button", {
@@ -63,6 +115,10 @@ export const FilterButton = styled("button", {
   "&:hover": {
     backgroundColor: "#cfd7ff",
   },
+
+  "@media(max-width: 940px)": {
+    pd: ".5625rem 1.5625rem",
+  },
 })
 
 export const RoadmapWrapper = styled("div", {
@@ -72,6 +128,12 @@ export const RoadmapWrapper = styled("div", {
   flexDirection: "column",
   br: "10px",
   gap: ".9375rem",
+
+  "@media(max-width: 940px)": {
+    width: "25%",
+    minHeight: "7.5rem",
+    maxHeight: "7.5rem",
+  },
 })
 
 export const RoadmapTitle = styled("div", {

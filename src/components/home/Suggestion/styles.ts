@@ -32,6 +32,12 @@ export const UpVoteButton = styled("button", {
   "&:hover": {
     backgroundColor: "#cfd7ff",
   },
+
+  "@sm": {
+    gap: "10px",
+    flexDirection: "row",
+    pd: ".625rem .9375rem",
+  },
 })
 
 export const CategoryPin = styled("span", {
@@ -47,6 +53,10 @@ export const CategoryPin = styled("span", {
 export const FeedbackResumeContainer = styled("div", {
   display: "flex",
   gap: "1.875rem",
+
+  "@sm": {
+    flexDirection: "column-reverse",
+  },
 })
 
 export const FeedbackResume = styled("div", {
@@ -72,10 +82,18 @@ export const Text = styled("p", {
         color: "#3a4374",
         fontWeight: "700",
         fontSize: "1.125rem",
+
+        "@sm": {
+          fontSize: "1rem",
+        },
       },
       resumeDescription: {
         color: "#657196",
         fontSize: "1rem",
+
+        "@sm": {
+          fontSize: ".8125rem",
+        },
       },
     },
   },
@@ -87,4 +105,10 @@ export const CommentsQuantity = styled("span", {
   gap: ".3125rem",
   color: "#3a4374",
   fontWeight: "700",
+
+  "@sm": {
+    pd: ".3125rem",
+    fontSize: ".8125rem",
+    alignSelf: "flex-end",
+  },
 })

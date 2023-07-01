@@ -1,8 +1,11 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext } from "react"
 import {
   FilterButton,
+  FilterButtonsWrapper,
+  FilterContainer,
+  FilterWrapper,
   Filters,
-  FiltersWrapper,
+  GradientCardWrapper,
   Names,
   RoadmapNamesWrapper,
   RoadmapNumberCount,
@@ -46,54 +49,60 @@ const SideFilters = () => {
   if (isLoading) return <></>
 
   return (
-    <FiltersWrapper>
-      <TopCard>
-        <TopText model="cardTitle">Frontend Mentor</TopText>
-        <TopText model="cardDescription">Feedback board</TopText>
-      </TopCard>
+    <FilterContainer>
+      <FilterWrapper>
+        <TopCard>
+          <GradientCardWrapper>
+            <TopText model="cardTitle">Frontend Mentor</TopText>
+            <TopText model="cardDescription">Feedback board</TopText>
+          </GradientCardWrapper>
+        </TopCard>
 
-      <Filters>
-        {filters.map((filter) => {
-          return (
-            <FilterButton
-              onClick={() => {
-                setDataCategoryFiltered(filter), handleSortCategoryFilter(filter)
-              }}
-              css={{
-                "--active-filter-bg":
-                  dataCategoryFiltered === filter ? "#4661e6" : "#f2f4ff",
-                "--active-filter-color":
-                  dataCategoryFiltered === filter ? "#fff" : "#4661e6",
-              }}
-              key={filter}
-            >
-              {filter}
-            </FilterButton>
-          )
-        })}
-      </Filters>
+        <Filters>
+          <FilterButtonsWrapper>
+            {filters.map((filter) => {
+              return (
+                <FilterButton
+                  onClick={() => {
+                    setDataCategoryFiltered(filter), handleSortCategoryFilter(filter)
+                  }}
+                  css={{
+                    "--active-filter-bg":
+                      dataCategoryFiltered === filter ? "#4661e6" : "#f2f4ff",
+                    "--active-filter-color":
+                      dataCategoryFiltered === filter ? "#fff" : "#4661e6",
+                  }}
+                  key={filter}
+                >
+                  {filter}
+                </FilterButton>
+              )
+            })}
+          </FilterButtonsWrapper>
+        </Filters>
 
-      <RoadmapWrapper>
-        <RoadmapTitle>
-          <span>Roadmap</span>
-          <Link href="/roadmap-view">View</Link>
-        </RoadmapTitle>
-        <Roadmaps>
-          <RoadmapNamesWrapper>
-            <Names css={{ "--color-pin": "#f49f85" }}>Planned</Names>
-            <RoadmapNumberCount>{counter.planned}</RoadmapNumberCount>
-          </RoadmapNamesWrapper>
-          <RoadmapNamesWrapper>
-            <Names css={{ "--color-pin": "#ad1fea" }}>In-Progress</Names>
-            <RoadmapNumberCount>{counter.inProgress}</RoadmapNumberCount>
-          </RoadmapNamesWrapper>
-          <RoadmapNamesWrapper>
-            <Names css={{ "--color-pin": "#62bcfa" }}>Live</Names>
-            <RoadmapNumberCount>{counter.live}</RoadmapNumberCount>
-          </RoadmapNamesWrapper>
-        </Roadmaps>
-      </RoadmapWrapper>
-    </FiltersWrapper>
+        <RoadmapWrapper>
+          <RoadmapTitle>
+            <span>Roadmap</span>
+            <Link href="/roadmap-view">View</Link>
+          </RoadmapTitle>
+          <Roadmaps>
+            <RoadmapNamesWrapper>
+              <Names css={{ "--color-pin": "#f49f85" }}>Planned</Names>
+              <RoadmapNumberCount>{counter.planned}</RoadmapNumberCount>
+            </RoadmapNamesWrapper>
+            <RoadmapNamesWrapper>
+              <Names css={{ "--color-pin": "#ad1fea" }}>In-Progress</Names>
+              <RoadmapNumberCount>{counter.inProgress}</RoadmapNumberCount>
+            </RoadmapNamesWrapper>
+            <RoadmapNamesWrapper>
+              <Names css={{ "--color-pin": "#62bcfa" }}>Live</Names>
+              <RoadmapNumberCount>{counter.live}</RoadmapNumberCount>
+            </RoadmapNamesWrapper>
+          </Roadmaps>
+        </RoadmapWrapper>
+      </FilterWrapper>
+    </FilterContainer>
   )
 }
 
