@@ -40,11 +40,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await prisma.reply.create({
       data: {
         description: req.body.reply,
-        name: comment?.name ?? "",
-        username: comment?.username ?? "",
+        name: "Random user",
+        username: `@randomusername${Math.floor(Math.random() * 9000) + 1000}`,
         iconImage: comment?.iconImage ?? "",
         commentId: Number(comment?.id),
         postsId: Number(post?.id),
+        replyingTo: req.body.replyingToUsername,
       },
     })
   }

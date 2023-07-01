@@ -51,6 +51,7 @@ model Reply {
   postsId     Int?
   createdAt   DateTime @default(now())
   commentId   Int
+  replyingTo  String?
   Comment     Comment  @relation(fields: [commentId], references: [id])
   Posts       Posts?   @relation(fields: [postsId], references: [id])
 

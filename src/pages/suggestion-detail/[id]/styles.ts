@@ -129,6 +129,11 @@ export const Text = styled("p", {
   margin: 0,
   color: "#647196",
 
+  ".replied-user": {
+    color: "#ad1fea",
+    fontWeight: "600",
+  },
+
   variants: {
     model: {
       user: {

@@ -79,6 +79,8 @@ const SuggestionDetail = (props: { id: string }) => {
   ) => {
     const id = props.id
 
+    if (!replyCommentFieldValue[commentId]?.value) return
+
     await axios.patch(`/api/posts/${id}`, {
       reply:
         replyCommentFieldValue[commentId as keyof typeof replyCommentFieldValue]
@@ -101,14 +103,19 @@ const SuggestionDetail = (props: { id: string }) => {
   const handleNewReplyOnReplies = async (
     commentId: string,
     replyId: string,
-    stateManager: React.Dispatch<React.SetStateAction<{}>>
+    stateManager: React.Dispatch<React.SetStateAction<{}>>,
+    replyingToUsername: string
   ) => {
     const id = props.id
 
+    if (!replyRepliesFieldValue[replyId]?.value) return
+
     await axios.patch(`/api/posts/${id}`, {
       reply:
-        replyRepliesFieldValue[replyId as keyof typeof replyRepliesFieldValue].value,
+        replyRepliesFieldValue[replyId as keyof typeof replyRepliesFieldValue]
+          ?.value,
       commentRelation: commentId,
+      replyingToUsername,
     })
 
     refetchData()
@@ -202,13 +209,13 @@ const SuggestionDetail = (props: { id: string }) => {
 
                           <button
                             type="button"
-                            onClick={() =>
+                            onClick={() => {
                               handleOpenReplyModal(
                                 content.id,
                                 openCommentReply,
                                 setOpenCommentReply
                               )
-                            }
+                            }}
                           >
                             Reply
                           </button>
@@ -234,12 +241,12 @@ const SuggestionDetail = (props: { id: string }) => {
                               placeholder="Type your reply here!"
                             />
                             <button
-                              onClick={() =>
+                              onClick={() => {
                                 handleNewCommentReply(
                                   content.id,
                                   setReplyCommentFieldValue
                                 )
-                              }
+                              }}
                               type="button"
                             >
                               Reply
@@ -271,19 +278,24 @@ const SuggestionDetail = (props: { id: string }) => {
 
                                 <button
                                   type="button"
-                                  onClick={() =>
+                                  onClick={() => {
                                     handleOpenReplyModal(
                                       reply.id,
                                       openRepliesReply,
                                       setOpenRepliesReply
                                     )
-                                  }
+                                  }}
                                 >
                                   Reply
                                 </button>
                               </UserInformations>
 
-                              <Text model="comment">{reply.description}</Text>
+                              <Text model="comment">
+                                <span className="replied-user">
+                                  {reply.replyingTo}
+                                </span>{" "}
+                                {reply.description}
+                              </Text>
                               {openRepliesReply.includes(reply.id) && (
                                 <ReplyArea>
                                   <textarea
@@ -303,13 +315,14 @@ const SuggestionDetail = (props: { id: string }) => {
                                     placeholder="Type your reply here!"
                                   />
                                   <button
-                                    onClick={() =>
+                                    onClick={() => {
                                       handleNewReplyOnReplies(
                                         content.id,
                                         reply.id,
-                                        setReplyRepliesFieldValue
+                                        setReplyRepliesFieldValue,
+                                        reply.username
                                       )
-                                    }
+                                    }}
                                     type="button"
                                   >
                                     Reply

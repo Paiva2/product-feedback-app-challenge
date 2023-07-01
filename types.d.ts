@@ -18,6 +18,7 @@ export interface DataSchema {
     postId: string
     replies: {
       id: string
+      replyingTo: string
       commentId: string
       postsId: string
       description: string
