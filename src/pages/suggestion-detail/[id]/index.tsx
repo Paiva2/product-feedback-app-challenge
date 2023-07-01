@@ -75,7 +75,8 @@ const SuggestionDetail = (props: { id: string }) => {
 
   const handleNewCommentReply = async (
     commentId: string,
-    stateManager: React.Dispatch<React.SetStateAction<{}>>
+    stateManager: React.Dispatch<React.SetStateAction<{}>>,
+    replyingTo: string
   ) => {
     const id = props.id
 
@@ -86,6 +87,7 @@ const SuggestionDetail = (props: { id: string }) => {
         replyCommentFieldValue[commentId as keyof typeof replyCommentFieldValue]
           .value,
       commentRelation: commentId,
+      replyingToUsername: replyingTo,
     })
 
     refetchData()
@@ -244,7 +246,8 @@ const SuggestionDetail = (props: { id: string }) => {
                               onClick={() => {
                                 handleNewCommentReply(
                                   content.id,
-                                  setReplyCommentFieldValue
+                                  setReplyCommentFieldValue,
+                                  content.username
                                 )
                               }}
                               type="button"
