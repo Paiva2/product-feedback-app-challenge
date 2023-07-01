@@ -6,7 +6,12 @@ export const EditFeedbackContainer = styled("div", {
   alignItems: "center",
   justifyContent: "center",
   width: "100%",
-  height: "100vh",
+  h: "100vh",
+
+  "@sm": {
+    pd: "2rem",
+    h: "auto",
+  },
 })
 
 export const EditFeedbackWrapper = styled("div", {
@@ -14,7 +19,7 @@ export const EditFeedbackWrapper = styled("div", {
   flexDirection: "column",
   gap: "3.75rem",
   justifyContent: "center",
-  height: "100%",
+  h: "100%",
 })
 
 export const GoBackWrapper = styled("div", {
@@ -91,7 +96,7 @@ export const EditFeedbackForm = styled("form", {
 
     textArea: {
       resize: "none",
-      height: "4.375rem",
+      h: "4.375rem",
       overflowY: "auto",
     },
   },
