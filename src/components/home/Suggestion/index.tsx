@@ -35,8 +35,6 @@ const Suggestion = ({ data }: SuggestionData) => {
     }
   }
 
-  console.log(data)
-
   return (
     <CardContainer>
       <CardWrapper>

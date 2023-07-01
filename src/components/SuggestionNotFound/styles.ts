@@ -13,6 +13,11 @@ export const Wrapper = styled("div", {
   padding: "9.375rem",
   textAlign: "center",
   fontFamily: "Jost, sans-serif",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "column",
+  gap: "2.5rem",
 })
 
 export const TextsWrapper = styled("div", {
@@ -20,9 +25,12 @@ export const TextsWrapper = styled("div", {
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
+  width: "65%",
 })
 
 export const Text = styled("p", {
+  margin: 5,
+
   variants: {
     model: {
       title: {

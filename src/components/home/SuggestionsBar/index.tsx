@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import LightIcon from "@/components/icons/LightIcon"
 import { CaretDown } from "phosphor-react"
 import {
@@ -13,19 +13,30 @@ import {
 } from "./styles"
 import { useRouter } from "next/router"
 import CheckedIcon from "@/components/icons/CheckedIcon"
+import { GlobalContext } from "@/context/globalContext"
+import { IContext } from "../../../../types"
 
 const SuggestionsBar = () => {
   const [openSortBy, setOpenSortBy] = useState(false)
-  const [selectedFilter, setSelectedFilter] = useState("Most Upvotes")
+
+  const {
+    selectedFilter,
+    setSelectedFilter,
+    handleSortByFilter,
+    dataSortedBy,
+    isLoading,
+  } = useContext(GlobalContext) as IContext
 
   const filters = [
     "Most Upvotes",
     "Least Upvotes",
-    "Most comments",
+    "Most Comments",
     "Least Comments",
   ]
 
   const route = useRouter()
+
+  if (isLoading) return <></>
 
   return (
     <CounterContainer>
@@ -34,7 +45,7 @@ const SuggestionsBar = () => {
           <Suggestions>
             <LightIcon />
 
-            <p>6 Suggestions</p>
+            <p>{dataSortedBy.length} Suggestions</p>
           </Suggestions>
 
           <SortBy>
@@ -57,6 +68,7 @@ const SuggestionsBar = () => {
                     <li
                       onClick={() => {
                         setSelectedFilter(filter), setOpenSortBy(false)
+                        handleSortByFilter(filter)
                       }}
                       key={filter}
                     >

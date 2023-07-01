@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import {
   FilterButton,
   Filters,
@@ -13,10 +13,32 @@ import {
   TopText,
 } from "./styles"
 import Link from "next/link"
+import { GlobalContext } from "@/context/globalContext"
+import { IContext } from "../../../../types"
 
 const SideFilters = () => {
   const [selectedFilter, setSelectedFilter] = useState("All")
   const filters = ["All", "UI", "Enhancement", "Feature", "Bug"]
+
+  let counter = {
+    planned: 0,
+    inProgress: 0,
+    live: 0,
+  }
+
+  const { dataSortedBy, isLoading } = useContext(GlobalContext) as IContext
+
+  dataSortedBy?.forEach((suggestion) => {
+    if (suggestion.status === "Planned") {
+      counter.planned += 1
+    } else if (suggestion.status === "In-Progress") {
+      counter.inProgress += 1
+    } else if (suggestion.status === "Live") {
+      counter.live += 1
+    }
+  })
+
+  if (isLoading) return <></>
 
   return (
     <FiltersWrapper>
@@ -52,15 +74,15 @@ const SideFilters = () => {
         <Roadmaps>
           <RoadmapNamesWrapper>
             <Names css={{ "--color-pin": "#f49f85" }}>Planned</Names>
-            <RoadmapNumberCount>2</RoadmapNumberCount>
+            <RoadmapNumberCount>{counter.planned}</RoadmapNumberCount>
           </RoadmapNamesWrapper>
           <RoadmapNamesWrapper>
             <Names css={{ "--color-pin": "#ad1fea" }}>In-Progress</Names>
-            <RoadmapNumberCount>3</RoadmapNumberCount>
+            <RoadmapNumberCount>{counter.inProgress}</RoadmapNumberCount>
           </RoadmapNamesWrapper>
           <RoadmapNamesWrapper>
             <Names css={{ "--color-pin": "#62bcfa" }}>Live</Names>
-            <RoadmapNumberCount>1</RoadmapNumberCount>
+            <RoadmapNumberCount>{counter.live}</RoadmapNumberCount>
           </RoadmapNamesWrapper>
         </Roadmaps>
       </RoadmapWrapper>

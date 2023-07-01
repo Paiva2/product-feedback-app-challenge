@@ -28,9 +28,14 @@ export interface DataSchema {
 }
 
 export interface IContext {
-  data: DataSchema[]
+  data: DataSchema[] | undefined
   isLoading: boolean
   formDefaultValue: IForm
+  dataSortedBy: DataSchema[] | undefined
+  setDataSortedBy: Dispatch<SetStateAction<DataSchema[]>>
+  selectedFilter: string
+  setSelectedFilter: Dispatch<SetStateAction<string>>
+  handleSortByFilter: (filter: string) => void
   refetchData: () => void
 }
 
