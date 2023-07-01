@@ -21,10 +21,12 @@ import { checkFormErrorsOnSubmit } from "@/utils/checkErrorsOnSubmit"
 import { handleGetInputValue } from "@/utils/handleGetInputValue"
 import { IForm } from "../../../types"
 import { GlobalContext } from "@/context/globalContext"
+import { useRouter } from "next/router"
 
 const NewFeedback = () => {
   const [categoryModalOpen, setCategoryModalOpen] = useState(false)
   const [selectCategory, setSelectCategory] = useState("Feature")
+  const route = useRouter()
 
   const { formDefaultValue, refetchData } = useContext(GlobalContext)
 
@@ -68,7 +70,7 @@ const NewFeedback = () => {
     <NewFeedbackContainer>
       <NewFeedbackWrapper>
         <GoBackWrapper>
-          <Link href="/">
+          <Link href="#" onClick={() => route.back()}>
             <CaretLeft size={15} color="#4661E6" weight="bold" /> Go Back
           </Link>
         </GoBackWrapper>

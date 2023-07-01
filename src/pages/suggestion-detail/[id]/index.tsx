@@ -158,7 +158,9 @@ const SuggestionDetail = (props: { id: string }) => {
         <Header>
           <div>
             <CaretLeft size={15} color="#4661E6" weight="bold" />
-            <Link href="/">Go Back</Link>
+            <Link onClick={() => route.back()} href="#">
+              Go Back
+            </Link>
           </div>
           <div>
             <button type="button" onClick={() => route.push(`edit/${postData?.id}`)}>

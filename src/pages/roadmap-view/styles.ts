@@ -159,6 +159,13 @@ export const CardResume = styled("div", {
   gap: ".625rem",
   height: "100%",
   overflowY: "auto",
+  cursor: "pointer",
+
+  "&:hover": {
+    "p:first-child": {
+      color: "#4661e6",
+    },
+  },
 
   ".feature-pin": {
     span: {

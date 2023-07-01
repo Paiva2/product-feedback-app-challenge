@@ -125,7 +125,11 @@ const RoadmapView = () => {
                         {suggestion?.status}
                       </CategoryPin>
 
-                      <CardResume>
+                      <CardResume
+                        onClick={() =>
+                          route.push(`/suggestion-detail/${suggestion.id}`)
+                        }
+                      >
                         <Text model="titleSection">{suggestion?.title}</Text>
                         <Text model="sectionDescription">
                           {suggestion?.description}
