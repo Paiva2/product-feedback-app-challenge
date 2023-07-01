@@ -4,6 +4,7 @@ export interface DataSchema {
   category: string
   description: string
   upVotes: number
+  upVoted: boolean
   updatedAt: string
   createddAt: string
   status: string
@@ -31,10 +32,14 @@ export interface IContext {
   suggestionsData: DataSchema[] | undefined
   isLoading: boolean
   formDefaultValue: IForm
-  dataSortedBy: DataSchema[] | undefined
-  setDataSortedBy: Dispatch<SetStateAction<DataSchema[]>>
+  dataSortedByCategory: DataSchema[] | undefined
+  dataCategoryFiltered: string
   selectedFilter: string
   setSelectedFilter: Dispatch<SetStateAction<string>>
+  setDataSortedByCategory: Dispatch<SetStateAction<DataSchema[]>>
+  setDataCategoryFiltered: (category: string) => void
+  filterGenerator: (filter: string, state: any, stateKey?: string) => any
+  handleSortCategoryFilter: (category: string) => void
   handleSortByFilter: (filter: string) => void
   refetchData: () => void
 }

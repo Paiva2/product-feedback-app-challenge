@@ -60,9 +60,14 @@ const GlobalStorage = ({ children }: Props) => {
     }
   }
 
-  const filterGenerator = (filter: string, state: any, stateKey?: string) => {
+  const filterGenerator = (
+    filter: string,
+    state: DataSchema[] | undefined,
+    stateKey?: string
+  ) => {
     const formattedFilter = state?.filter(
-      (itemToFilter) => itemToFilter[stateKey] === filter
+      (itemToFilter) =>
+        itemToFilter[stateKey as keyof typeof itemToFilter] === filter
     )
 
     return formattedFilter

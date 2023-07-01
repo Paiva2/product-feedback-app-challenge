@@ -27,6 +27,7 @@ export const UpVoteButton = styled("button", {
   backgroundColor: "#f2f4ff",
   color: "#3a4374",
   transition: ".2s ease-in-out",
+  minWidth: "1.5625rem",
 
   "&:hover": {
     backgroundColor: "#cfd7ff",
