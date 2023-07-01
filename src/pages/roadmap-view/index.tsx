@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react"
+import React, { useContext } from "react"
 import {
   Card,
   CardFooter,
@@ -22,8 +22,9 @@ import { useRouter } from "next/router"
 import { GlobalContext } from "@/context/globalContext"
 
 const RoadmapView = () => {
-  const route = useRouter()
   const { suggestionsData, isLoading } = useContext(GlobalContext)
+
+  const route = useRouter()
 
   const filterColumnStatus = (status: string) => {
     const filteredStatus = suggestionsData?.filter(
@@ -84,7 +85,9 @@ const RoadmapView = () => {
             return (
               <CardsContainer key={column.id}>
                 <CardSectionTitleWrapper>
-                  <Text model="titleSection">{column.columnTitle} (2)</Text>
+                  <Text model="titleSection">
+                    {column.columnTitle} ({column?.status?.length})
+                  </Text>
                   <Text model="sectionDescription">{column.description}</Text>
                 </CardSectionTitleWrapper>
 

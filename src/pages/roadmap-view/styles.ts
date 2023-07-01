@@ -7,7 +7,7 @@ export const RoadmapContainer = styled("div", {
   justifyContent: "center",
   maxWidth: "1300px",
   margin: "0 auto",
-  padding: "5rem 20px",
+  padding: "3rem 1.25rem",
 })
 
 export const RoadmapWrapper = styled("div", {
@@ -83,7 +83,7 @@ export const NewfeedbackButtonWrapper = styled("div", {
 export const ColumnsWrapper = styled("div", {
   display: "flex",
   alignItems: "center",
-  gap: "30px",
+  gap: "1.875rem",
 })
 
 export const CardsContainer = styled("div", {
@@ -123,7 +123,7 @@ export const Card = styled("div", {
   pd: "1.875rem 1.875rem 1.25rem 1.875rem",
   position: "relative",
   justifyContent: "space-around",
-  height: "250px",
+  height: "15.625rem",
 
   "&::before": {
     content: "''",

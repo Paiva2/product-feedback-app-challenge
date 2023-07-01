@@ -1,7 +1,7 @@
 import Head from "next/head"
 import SideFilters from "@/components/home/SideFilters"
 import { Fragment, useContext } from "react"
-import { HomeContainer } from "./style"
+import { HomeContainer, MiddleSection } from "./style"
 import SuggestionsBar from "@/components/home/SuggestionsBar"
 import { GlobalContext } from "@/context/globalContext"
 import { IContext } from "../../types"
@@ -20,16 +20,7 @@ export default function Home() {
       </Head>
       <HomeContainer>
         <SideFilters />
-        <div
-          style={{
-            width: "50%",
-            display: "flex",
-            flexDirection: "column",
-            gap: ".9375rem",
-            maxWidth: "1200px",
-            alignSelf: "flex-start",
-          }}
-        >
+        <MiddleSection>
           <SuggestionsBar />
 
           {!dataSortedBy?.length && !isLoading && <SuggestionNotFound />}
@@ -39,7 +30,7 @@ export default function Home() {
           {dataSortedBy?.map((suggestion) => (
             <Suggestion key={suggestion.id} data={suggestion} />
           ))}
-        </div>
+        </MiddleSection>
       </HomeContainer>
     </Fragment>
   )

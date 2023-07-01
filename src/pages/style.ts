@@ -9,3 +9,12 @@ export const HomeContainer = styled("main", {
   paddingBottom: "3.125rem",
   gap: "1.875rem",
 })
+
+export const MiddleSection = styled("div", {
+  width: "50%",
+  display: "flex",
+  flexDirection: "column",
+  gap: ".9375rem",
+  maxWidth: "1300px",
+  alignSelf: "flex-start",
+})

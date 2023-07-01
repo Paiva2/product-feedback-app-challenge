@@ -118,7 +118,7 @@ export const NewFeedBackButtonWrapper = styled("div", {
     color: "#fff",
     fontWeight: "700",
     backgroundColor: "#ad1fea",
-    pd: ".625rem 1.25rem",
+    pd: ".625rem .9375rem",
     br: "10px",
     cursor: "pointer",
     transition: ".3s ease-in-out",
