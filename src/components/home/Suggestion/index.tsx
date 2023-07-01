@@ -40,10 +40,7 @@ const Suggestion = ({ data }: SuggestionData) => {
       <CardWrapper>
         <FeedbackResumeContainer>
           <span>
-            <UpVoteButton
-              style={data.upVoted ? { backgroundColor: "#4661e6" } : {}}
-              onClick={() => handleUpdateUpVote(data.id)}
-            >
+            <UpVoteButton onClick={() => handleUpdateUpVote(data.id)}>
               <CaretUp color="#4661e6" size={15} weight="bold" />
               {data.upVotes}
             </UpVoteButton>

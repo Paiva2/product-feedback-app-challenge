@@ -179,7 +179,7 @@ export const CommentInformations = styled("div", {
   gap: "1.875rem",
 
   ".comment-and-reply-wrapper:not(:last-child)": {
-    paddingBottom: "10px",
+    paddingBottom: ".625rem",
     borderBottom: "1px solid rgba(58,67,115,0.15)",
   },
 })
@@ -226,8 +226,7 @@ export const NewCommentContainer = styled("div", {
     w: "95%",
     backgroundColor: "#f7f8fd",
     br: "10px",
-    paddingLeft: "1.25rem",
-    paddingTop: "1.25rem",
+    pd: ".9375rem",
     fontSize: "1rem",
     fontFamily: "Jost, sans-serif",
     color: "#3a4374",

@@ -176,81 +176,6 @@ const SuggestionDetail = (props: { id: string }) => {
             <CommentQuantity>
               {commentCount} Comment{!!commentCount && commentCount > 1 && "s"}
             </CommentQuantity>
-
-            {/*             <CommentInformations>
-              <CommentWrapper>
-                <CommentImage>
-                  <Image
-                    width={40}
-                    height={40}
-                    alt="User profile"
-                    src="https://i.postimg.cc/L8LCLyJd/image-elijah.jpg"
-                  />
-                </CommentImage>
-                <Comment>
-                  <UserInformations>
-                    <Username>
-                      <Text model="user">Elijah Moss</Text>
-                      <Text model="username">@hexagon.bestagon</Text>
-                    </Username>
-
-                    <button
-                      type="button"
-                      onClick={() => setOpenCommentReply(!openCommentReply)}
-                    >
-                      Reply
-                    </button>
-                  </UserInformations>
-
-                  <Text model="comment">
-                    Also, please allow styles to be applied based on system
-                    preferences. I would love to be able to browse Frontend Mentor in
-                    the evening after my devices dark mode turns on without the
-                    bright background it currently has.
-                  </Text>
-                  {openCommentReply && (
-                    <ReplyArea>
-                      <textarea placeholder="Type your reply here!" />
-                      <button type="button">Reply</button>
-                    </ReplyArea>
-                  )}
-                </Comment>
-              </CommentWrapper>
-              <ReplySectionContaner>
-                <div>
-                  <ReplyImage>
-                    <Image
-                      width={40}
-                      height={40}
-                      alt="User profile"
-                      src="https://i.postimg.cc/L8LCLyJd/image-elijah.jpg"
-                    />
-                  </ReplyImage>
-                  <Reply>
-                    <UserInformations>
-                      <Username>
-                        <Text model="user">Elijah Moss</Text>
-                        <Text model="username">@hexagon.bestagon</Text>
-                      </Username>
-
-                      <button>Reply</button>
-                    </UserInformations>
-
-                    <Text model="comment">
-                      Also, please allow styles to be applied based on system
-                      preferences. I would love to be able to browse Frontend Mentor
-                      in the evening after my devices dark mode turns on without the
-                      bright background it currently has.
-                    </Text>
-                    <ReplyArea>
-                      <textarea placeholder="Type your reply here!" />
-                      <button type="button">Reply</button>
-                    </ReplyArea>
-                  </Reply>
-                </div>
-              </ReplySectionContaner>
-            </CommentInformations> */}
-
             <CommentInformations>
               {postData?.comment?.map((content) => {
                 return (
@@ -362,6 +287,7 @@ const SuggestionDetail = (props: { id: string }) => {
                               {openRepliesReply.includes(reply.id) && (
                                 <ReplyArea>
                                   <textarea
+                                    maxLength={255}
                                     value={
                                       replyRepliesFieldValue[
                                         reply.id as keyof typeof replyCommentFieldValue
@@ -405,13 +331,16 @@ const SuggestionDetail = (props: { id: string }) => {
             <p>Add Comment</p>
 
             <textarea
+              maxLength={255}
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
               placeholder="Type your comment here!"
             />
 
             <PostComment>
-              <p>255 characters left</p>
+              <p>
+                {String(newComment.length - 255).replace("-", "")} characters left
+              </p>
 
               <button type="button" onClick={() => handleNewComment(postData?.id)}>
                 Post Comment
