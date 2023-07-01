@@ -9,7 +9,7 @@ export const EditFeedbackContainer = styled("div", {
   h: "100vh",
 
   "@sm": {
-    pd: "2rem",
+    pd: "2.2rem",
     h: "auto",
   },
 })
@@ -186,6 +186,11 @@ export const SaveChangesButtonWrapper = styled("div", {
   alignItems: "center",
   justifyContent: "space-between",
   width: "100%",
+
+  "@sm": {
+    flexDirection: "column-reverse",
+    gap: ".625rem",
+  },
 })
 
 export const Button = styled("button", {
@@ -210,6 +215,13 @@ export const Button = styled("button", {
         backgroundColor: "#ad1fea",
       },
     },
+  },
+
+  "@sm": {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    w: "85%",
   },
 })
 

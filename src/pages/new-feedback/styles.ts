@@ -6,7 +6,13 @@ export const NewFeedbackContainer = styled("div", {
   alignItems: "center",
   justifyContent: "center",
   width: "100%",
-  height: "100vh",
+  h: "100vh",
+  transition: "all .3s ease-in-out",
+
+  "@sm": {
+    pd: "1.5rem",
+    h: "auto",
+  },
 })
 
 export const NewFeedbackWrapper = styled("div", {
@@ -193,6 +199,13 @@ export const NewFeedBackButtonWrapper = styled("div", {
 
     "&:hover": {
       backgroundColor: "#C75AF6",
+    },
+
+    "@sm": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      w: "85%",
     },
   },
 })
