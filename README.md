@@ -1,10 +1,10 @@
-# Frontend Mentor - Product feedback app
+# Frontend Mentor - Product Feedback App
 
 This is a completion of the [Frontend Mentors](https://frontendmentors.io) "Product Feedback" challenge.
 
-Frontend (Netlify): [Vercel]()
+Live Demo [Vercel]()
 
-## [Demo Video]: (https://www.loom.com/share/b9dd762f76c84efd98bc1bab7713a8ce?sid=4cd042f2-f2ed-43ed-9f3d-93397a7f2330)
+## [Demo Video](https://www.loom.com/share/b9dd762f76c84efd98bc1bab7713a8ce?sid=4cd042f2-f2ed-43ed-9f3d-93397a7f2330)
 
 [Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects. These premium challenges are perfect portfolio pieces, so please feel free to use what you create in your portfolio to show others.
 
@@ -17,13 +17,6 @@ Frontend (Netlify): [Vercel]()
 - Stitches (CSS);
 - Prisma (MySQL)
 - Docker
-
-<br />
-<br />
-
-## Contributors
-
-João Vitor Paiva (GitHub: [@Paiva2](https://github.com/Paiva2))
 
 ## Installation
 
@@ -38,12 +31,6 @@ $ npm run start
 ```
 
 ## The challenge
-
-Your challenge is to build out this product feedback application and get it looking as close to the design as possible.
-
-You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.
-
-We provide the data in a local `data.json` file, so use that to populate the content on the first load. If you want to take it up a notch, feel free to build this as a full-stack application!
 
 Your users should be able to:
 
