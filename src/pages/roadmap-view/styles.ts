@@ -1,4 +1,5 @@
 import { styled } from "@/styles/stitches.config"
+import { keyframes } from "@stitches/react"
 
 export const RoadmapContainer = styled("div", {
   display: "flex",
@@ -8,6 +9,10 @@ export const RoadmapContainer = styled("div", {
   maxWidth: "1300px",
   margin: "0 auto",
   padding: "3rem 1.25rem",
+
+  "@sm": {
+    padding: 0,
+  },
 })
 
 export const RoadmapWrapper = styled("div", {
@@ -16,6 +21,12 @@ export const RoadmapWrapper = styled("div", {
   flexDirection: "column",
   gap: "1.5625rem",
   alignItems: "center",
+
+  "@sm": {
+    gap: "1.25rem",
+    paddingBottom: "1.25rem",
+    w: "100%",
+  },
 })
 
 export const Topbar = styled("div", {
@@ -25,6 +36,10 @@ export const Topbar = styled("div", {
   backgroundColor: "#373f68",
   br: "10px",
   width: "100%",
+
+  "@sm": {
+    br: "0",
+  },
 })
 
 export const TopbarWrapper = styled("div", {
@@ -33,6 +48,10 @@ export const TopbarWrapper = styled("div", {
   justifyContent: "space-between",
   width: "100%",
   padding: "1.25rem 1.875rem",
+
+  "@sm": {
+    padding: "1.25rem",
+  },
 })
 
 export const GoBackWrapper = styled("div", {
@@ -45,12 +64,20 @@ export const GoBackWrapper = styled("div", {
   p: {
     margin: 0,
     fontSize: "1.5rem",
+
+    "@sm": {
+      fontSize: "1.125rem",
+    },
   },
 
   span: {
     display: "flex",
     alignItems: "center",
     gap: ".625rem",
+
+    "@sm": {
+      fontSize: "13px",
+    },
 
     a: {
       color: "inherit",
@@ -77,6 +104,10 @@ export const NewfeedbackButtonWrapper = styled("div", {
     "&:hover": {
       backgroundColor: "#C75AF6",
     },
+
+    "@sm": {
+      fontSize: "13px",
+    },
   },
 })
 
@@ -84,129 +115,64 @@ export const ColumnsWrapper = styled("div", {
   display: "flex",
   alignItems: "center",
   gap: "1.875rem",
-})
 
-export const CardsContainer = styled("div", {
-  display: "flex",
-  flexDirection: "column",
-  gap: "1.5625rem",
-  w: "35%",
-  alignSelf: "flex-start",
-})
-
-export const CardSectionTitleWrapper = styled("div", {})
-
-export const Text = styled("p", {
-  margin: 0,
-
-  variants: {
-    model: {
-      titleSection: {
-        color: "#3a4374",
-        fontSize: "1.125rem",
-        fontWeight: "700",
-      },
-      sectionDescription: {
-        color: "#647196",
-        fontSize: "1rem",
-      },
-    },
+  "@sm": {
+    w: "90%",
+    flexDirection: "column",
+    justifyContent: "center",
   },
 })
 
-export const Card = styled("div", {
-  display: "flex",
-  flexDirection: "column",
-  backgroundColor: "#fff",
-  gap: "1.25rem",
-  br: "8px",
-  pd: "1.875rem 1.875rem 1.25rem 1.875rem",
-  position: "relative",
-  justifyContent: "space-around",
-  height: "15.625rem",
+export const MobileSubmenu = styled("div", {
+  display: "none",
 
-  "&::before": {
-    content: "''",
-    w: "100%",
-    top: 0,
-    left: 0,
-    h: ".375rem",
-    br: "100px 100px 0px 0px",
-    backgroundColor: "var(--status-color)",
-    position: "absolute",
-  },
-})
+  "@sm": {
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
+    justifyContent: "center",
+    borderBottom: "1px solid rgba(140,146,179,.25)",
 
-export const CategoryPin = styled("span", {
-  display: "flex",
-  alignItems: "center",
-  gap: ".625rem",
-  fontSize: "1rem",
-  color: "#647196",
-
-  "&::before": {
-    content: "''",
-    w: ".4375rem",
-    h: ".4375rem",
-    br: "9999px",
-    backgroundColor: "var(--status-color)",
-  },
-})
-
-export const CardResume = styled("div", {
-  display: "flex",
-  flexDirection: "column",
-  gap: ".625rem",
-  height: "100%",
-  overflowY: "auto",
-  cursor: "pointer",
-
-  "&:hover": {
-    "p:first-child": {
-      color: "#4661e6",
-    },
-  },
-
-  ".feature-pin": {
-    span: {
-      color: "#4661e6",
-      fontWeight: "700",
+    button: {
+      all: "unset",
       fontSize: ".8125rem",
-      br: "10px",
-      backgroundColor: "#f2f4ff",
-      pd: ".3125rem .9375rem",
-      userSelect: "none",
+      fontWeight: "700",
+      color: "#3a4374",
     },
   },
 })
 
-export const CardFooter = styled("div", {
+export const SubmenuWrapper = styled("div", {
+  width: "100%",
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
+  paddingBottom: ".9375rem",
+})
 
-  span: {
-    color: "#3a4374",
-    fontSize: "1rem",
-    fontWeight: "700",
+export const MenuButtonWrapper = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  w: "33.3%",
+  position: "relative",
+  h: "100%",
+
+  "&.inactive": {
+    opacity: 0.5,
+    transition: ".3s ease-in-out",
   },
 
-  button: {
-    all: "unset",
-    display: "flex",
-    alignItems: "center",
-    gap: ".3125rem",
-    fontSize: ".8125rem",
-    fontWeight: "700",
-    br: "10px",
-    cursor: "pointer",
-    pd: ".625rem .9375rem",
-    backgroundColor: "#f2f4ff",
-    color: "#3a4374",
-    transition: ".2s ease-in-out",
+  "&.active": {
+    transition: ".3s ease-in-out",
 
-    "&:hover": {
-      backgroundColor: "#cfd7ff",
+    "&::before": {
+      content: "''",
+      width: "100%",
+      height: "4px",
+      position: "absolute",
+      top: "calc(100% + .6875rem)",
+      background: "var(--identification)",
     },
   },
 })

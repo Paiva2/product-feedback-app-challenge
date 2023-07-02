@@ -24,14 +24,19 @@ export const NewFeedbackWrapper = styled("div", {
 })
 
 export const GoBackWrapper = styled("div", {
-  a: {
+  display: "flex",
+  alignItems: "center",
+  gap: ".625rem",
+
+  button: {
+    all: "unset",
+    cursor: "pointer",
     display: "flex",
     alignItems: "center",
     color: "#647196",
     fontSize: ".875rem",
     fontWeight: "700",
     textDecoration: "none",
-    gap: ".625rem",
 
     "&:hover": {
       textDecoration: "underline",

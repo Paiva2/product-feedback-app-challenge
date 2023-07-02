@@ -68,9 +68,10 @@ const NewFeedback = () => {
     <NewFeedbackContainer>
       <NewFeedbackWrapper>
         <GoBackWrapper>
-          <Link href="#" onClick={() => window?.history.back()}>
-            <CaretLeft size={15} color="#4661E6" weight="bold" /> Go Back
-          </Link>
+          <CaretLeft size={15} color="#4661E6" weight="bold" />
+          <button type="button" onClick={() => window?.history.back()}>
+            Go Back
+          </button>
         </GoBackWrapper>
 
         <NewFeedbackCard>

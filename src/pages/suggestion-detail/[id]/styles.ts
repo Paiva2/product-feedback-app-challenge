@@ -71,28 +71,37 @@ export const Header = styled("div", {
     gap: ".3125rem",
     fontWeight: "700",
     fontSize: ".875rem",
+  },
+})
 
-    button: {
-      all: "unset",
-      backgroundColor: "#4661e6",
-      pd: ".75rem 1.875rem",
-      br: "8px",
-      color: "#fff",
-      cursor: "pointer",
-      transition: "opacity .2s ease-in-out",
+export const EditFeedbackWrapper = styled("div", {
+  button: {
+    all: "unset",
+    backgroundColor: "#4661e6",
+    pd: ".75rem 1.875rem",
+    br: "8px",
+    color: "#fff",
+    cursor: "pointer",
+    transition: "opacity .2s ease-in-out",
 
-      "&:hover": {
-        opacity: ".8",
-      },
+    "&:hover": {
+      opacity: ".8",
     },
+  },
+})
 
-    a: {
-      textDecoration: "none",
-      color: "#647196",
+export const GoBackWrapper = styled("div", {
+  display: "flex",
 
-      "&:hover": {
-        textDecoration: "underline",
-      },
+  button: {
+    display: "flex",
+    alignItems: "center",
+    all: "unset",
+    cursor: "pointer",
+    color: "#647196",
+
+    "&:hover": {
+      textDecoration: "underline",
     },
   },
 })

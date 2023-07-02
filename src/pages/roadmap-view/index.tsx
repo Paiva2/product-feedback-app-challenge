@@ -1,30 +1,30 @@
-import React, { useContext } from "react"
+import React, { Fragment, useContext, useState } from "react"
 import {
-  Card,
-  CardFooter,
-  CardResume,
-  CardSectionTitleWrapper,
-  CardsContainer,
-  CategoryPin,
   ColumnsWrapper,
   GoBackWrapper,
+  MenuButtonWrapper,
+  MobileSubmenu,
   NewfeedbackButtonWrapper,
   RoadmapContainer,
   RoadmapWrapper,
-  Text,
+  SubmenuWrapper,
   Topbar,
   TopbarWrapper,
 } from "./styles"
-import { CaretLeft, CaretUp } from "phosphor-react"
+import { CaretLeft } from "phosphor-react"
 import Link from "next/link"
-import CommentsIcon from "@/components/icons/CommentsIcon"
 import { useRouter } from "next/router"
 import { GlobalContext } from "@/context/globalContext"
+import { useIsMobile } from "../../../hooks/useIsMobile"
+import RoadmapViewColumns from "@/components/RoadmapViewColumns"
 
 const RoadmapView = () => {
   const { suggestionsData, isLoading, filterGenerator } = useContext(GlobalContext)
+  const [menuMobileCategory, setMenuMobileCategory] = useState("Planned")
 
   const route = useRouter()
+
+  const isMobile = useIsMobile()
 
   const columns = [
     {
@@ -72,55 +72,37 @@ const RoadmapView = () => {
             </NewfeedbackButtonWrapper>
           </TopbarWrapper>
         </Topbar>
+        <MobileSubmenu>
+          <SubmenuWrapper>
+            {columns.map((menu) => {
+              return (
+                <MenuButtonWrapper
+                  css={{
+                    "--identification": `#${menu.color}`,
+                  }}
+                  className={
+                    menuMobileCategory === menu.columnTitle ? "active" : "inactive"
+                  }
+                  key={menu.id}
+                >
+                  <button onClick={() => setMenuMobileCategory(menu.columnTitle)}>
+                    {menu.columnTitle}
+                  </button>
+                </MenuButtonWrapper>
+              )
+            })}
+          </SubmenuWrapper>
+        </MobileSubmenu>
         <ColumnsWrapper>
-          {columns?.map((column) => {
+          {columns.map((column) => {
             return (
-              <CardsContainer key={column.id}>
-                <CardSectionTitleWrapper>
-                  <Text model="titleSection">
-                    {column.columnTitle} ({column?.status?.length})
-                  </Text>
-                  <Text model="sectionDescription">{column.description}</Text>
-                </CardSectionTitleWrapper>
+              <Fragment key={column.id}>
+                {isMobile && column.columnTitle === menuMobileCategory && (
+                  <RoadmapViewColumns column={column} />
+                )}
 
-                {column?.status?.map((suggestion) => {
-                  return (
-                    <Card
-                      css={{ "--status-color": `#${column.color}` }}
-                      key={suggestion.id}
-                    >
-                      <CategoryPin css={{ "--status-color": `#${column.color}` }}>
-                        {suggestion?.status}
-                      </CategoryPin>
-                      <CardResume
-                        onClick={() =>
-                          route.push(`/suggestion-detail/${suggestion.id}`)
-                        }
-                      >
-                        <Text model="titleSection">{suggestion?.title}</Text>
-                        <Text model="sectionDescription">
-                          {suggestion?.description}
-                        </Text>
-
-                        <div className="feature-pin">
-                          <span>{suggestion?.category}</span>
-                        </div>
-                      </CardResume>
-
-                      <CardFooter>
-                        <button>
-                          <CaretUp color="#4661e6" size={15} weight="bold" />{" "}
-                          {suggestion.upVotes}
-                        </button>
-
-                        <span>
-                          <CommentsIcon /> {suggestion._count.comment}
-                        </span>
-                      </CardFooter>
-                    </Card>
-                  )
-                })}
-              </CardsContainer>
+                {!isMobile && <RoadmapViewColumns column={column} />}
+              </Fragment>
             )
           })}
         </ColumnsWrapper>

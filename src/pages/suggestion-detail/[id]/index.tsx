@@ -9,6 +9,8 @@ import {
   CommentWrapper,
   CommentsContainer,
   CommentsWrapper,
+  EditFeedbackWrapper,
+  GoBackWrapper,
   Header,
   MiddleSection,
   NewCommentContainer,
@@ -165,17 +167,15 @@ const SuggestionDetail = (props: { id: string }) => {
     <CommentsContainer>
       <CommentsWrapper>
         <Header>
-          <div>
+          <GoBackWrapper>
             <CaretLeft size={15} color="#4661E6" weight="bold" />
-            <Link onClick={() => route.back()} href="#">
-              Go Back
-            </Link>
-          </div>
-          <div>
+            <button onClick={() => route.back()}>Go Back</button>
+          </GoBackWrapper>
+          <EditFeedbackWrapper>
             <button type="button" onClick={() => route.push(`edit/${postData?.id}`)}>
               Edit Feedback
             </button>
-          </div>
+          </EditFeedbackWrapper>
         </Header>
 
         {postData && <Suggestion refetch={refetchData} data={postData} />}
