@@ -56,7 +56,7 @@ export const Card = styled("div", {
   justifyContent: "space-around",
   height: "15.625rem",
 
-  "@media(max-width: 940px)": {
+  "@md": {
     pd: "1.25rem .9375rem 1.25rem .9375rem",
   },
 

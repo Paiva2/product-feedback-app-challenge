@@ -3,7 +3,8 @@ import { createStitches } from "@stitches/react"
 
 export const { styled, css, getCssText } = createStitches({
   media: {
-    sm: "(max-width: 768px)",
+    md: "(max-width: 58.75rem)",
+    sm: "(max-width: 48rem)",
   },
   utils: {
     m: (value: string) => ({

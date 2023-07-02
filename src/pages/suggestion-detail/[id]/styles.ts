@@ -10,21 +10,21 @@ export const CommentsContainer = styled("div", {
   paddingBottom: "6.25rem",
   gap: "1.875rem",
 
-  "@sm": {
+  "@md": {
     paddingTop: "1.5rem",
     paddingBottom: "1.5rem",
   },
 })
 
 export const CommentsWrapper = styled("div", {
-  width: "40%",
+  width: "55%",
   display: "flex",
   flexDirection: "column",
   gap: ".9375rem",
   maxWidth: "1200px",
   alignSelf: "flex-start",
 
-  "@media(max-width: 940px)": {
+  "@md": {
     width: "92%",
   },
 })

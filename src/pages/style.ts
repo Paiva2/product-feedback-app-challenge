@@ -9,8 +9,10 @@ export const HomeContainer = styled("main", {
   paddingBottom: "3rem",
   gap: "1.875rem",
 
-  "@media(max-width: 940px)": {
+  "@md": {
     flexDirection: "column",
+    paddingBottom: "2rem",
+    paddingTop: "2rem",
   },
 
   "@sm": {
@@ -39,7 +41,7 @@ export const MiddleSection = styled("div", {
   maxWidth: "900px",
   alignSelf: "flex-start",
 
-  "@media(max-width: 940px)": {
+  "@md": {
     width: "90%",
     alignItems: "center",
     justifyContent: "center",

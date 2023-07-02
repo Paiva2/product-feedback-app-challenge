@@ -6,7 +6,7 @@ export const FilterContainer = styled("div", {
   display: "flex",
   flexDirection: "column",
 
-  "@media(max-width: 940px)": {
+  "@md": {
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
@@ -71,7 +71,7 @@ export const AllFiltersWrapper = styled("div", {
   flexDirection: "column",
   gap: "0.9375rem",
 
-  "@media(max-width: 940px)": {
+  "@md": {
     flexDirection: "row",
   },
 
@@ -109,7 +109,7 @@ export const FilterWrapper = styled("div", {
   flexDirection: "column",
   gap: ".9375rem",
 
-  "@media(max-width: 940px)": {
+  "@md": {
     display: "flex",
     alignItems: "center",
     w: "90%",
@@ -123,7 +123,7 @@ export const FilterWrapper = styled("div", {
 })
 
 export const GradientCardWrapper = styled("div", {
-  "@media(max-width: 940px)": {
+  "@md": {
     display: "flex",
     flexDirection: "column",
     alignSelf: "flex-end",
@@ -147,7 +147,7 @@ export const TopCard = styled("div", {
     opacity: ".9",
   },
 
-  "@media(max-width: 940px)": {
+  "@md": {
     display: "flex",
     minWidth: "12.5rem",
     minHeight: "7.5rem",
@@ -211,7 +211,7 @@ export const Filters = styled("div", {
   gap: ".625rem",
   maxWidth: "15.625rem",
 
-  "@media(max-width: 940px)": {
+  "@md": {
     maxWith: "unset",
     flex: "1",
     minHeight: "7.5rem",
@@ -241,7 +241,7 @@ export const FilterButton = styled("button", {
     backgroundColor: "#cfd7ff",
   },
 
-  "@media(max-width: 940px)": {
+  "@md": {
     pd: ".5625rem 1.5625rem",
   },
 })
@@ -254,7 +254,7 @@ export const RoadmapWrapper = styled("div", {
   br: "10px",
   gap: ".9375rem",
 
-  "@media(max-width: 940px)": {
+  "@md": {
     width: "25%",
     minHeight: "7.5rem",
     maxHeight: "7.5rem",
