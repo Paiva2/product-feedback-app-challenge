@@ -14,10 +14,12 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
 
   const [pageLoading, setPageLoading] = useState<boolean>(false)
+
   useEffect(() => {
     const handleStart = () => {
       setPageLoading(true)
     }
+
     const handleComplete = () => {
       setPageLoading(false)
     }

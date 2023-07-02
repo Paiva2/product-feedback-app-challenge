@@ -1,5 +1,4 @@
 import { styled } from "@/styles/stitches.config"
-import { keyframes } from "@stitches/react"
 
 export const HomeContainer = styled("main", {
   display: "flex",
