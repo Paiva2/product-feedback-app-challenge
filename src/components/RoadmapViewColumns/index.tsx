@@ -26,9 +26,9 @@ interface RoadmapviewProps {
 }
 
 const RoadmapViewColumns = ({ column }: RoadmapviewProps) => {
-  const route = useRouter()
-
   const { refetchData } = useContext(GlobalContext)
+
+  const route = useRouter()
 
   const handleUpdateUpVote = async (suggestionId: number) => {
     const id = suggestionId
