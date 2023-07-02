@@ -7,6 +7,12 @@ export const NotFoundContainer = styled("div", {
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
+  br: "10px",
+  boxShadow: "9px 13px 9px -6px #000)",
+
+  "@sm": {
+    w: "90%",
+  },
 })
 
 export const Wrapper = styled("div", {
@@ -18,6 +24,10 @@ export const Wrapper = styled("div", {
   justifyContent: "center",
   flexDirection: "column",
   gap: "2.5rem",
+
+  "@sm": {
+    padding: "3.125rem .625rem",
+  },
 })
 
 export const TextsWrapper = styled("div", {
@@ -26,6 +36,10 @@ export const TextsWrapper = styled("div", {
   alignItems: "center",
   justifyContent: "center",
   width: "65%",
+
+  "@sm": {
+    w: "100%",
+  },
 })
 
 export const Text = styled("p", {

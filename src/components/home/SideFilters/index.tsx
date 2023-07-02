@@ -78,7 +78,8 @@ const SideFilters = () => {
                     <FilterButton
                       onClick={() => {
                         setDataCategoryFiltered(filter),
-                          handleSortCategoryFilter(filter)
+                          handleSortCategoryFilter(filter),
+                          setOpenMenuHamburguer(!openMenuHamburguer)
                       }}
                       css={{
                         "--active-filter-bg":

@@ -53,11 +53,12 @@ export const { styled, css, getCssText } = createStitches({
 
 export const globalStyles = globalCss({
   body: {
+    position: "relative",
+    minHeight: "100vh",
     margin: 0,
     padding: 0,
     boxSizing: "border-box",
     backgroundColor: "#f7f8fd",
     fontFamily: "Jost, sans-serif",
-    position: "relative",
   },
 })
