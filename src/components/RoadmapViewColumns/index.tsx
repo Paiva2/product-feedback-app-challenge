@@ -1,4 +1,4 @@
-import React, { Fragment } from "react"
+import React, { Fragment, useContext } from "react"
 import {
   Card,
   CardFooter,
@@ -12,6 +12,8 @@ import { CaretUp } from "phosphor-react"
 import CommentsIcon from "../icons/CommentsIcon"
 import { useRouter } from "next/router"
 import { DataSchema } from "../../../types"
+import axios from "axios"
+import { GlobalContext } from "@/context/globalContext"
 
 interface RoadmapviewProps {
   column: {
@@ -25,6 +27,16 @@ interface RoadmapviewProps {
 
 const RoadmapViewColumns = ({ column }: RoadmapviewProps) => {
   const route = useRouter()
+
+  const { refetchData } = useContext(GlobalContext)
+
+  const handleUpdateUpVote = async (suggestionId: number) => {
+    const id = suggestionId
+
+    await axios.post("/api/posts", { id })
+
+    refetchData()
+  }
 
   return (
     <Fragment>
@@ -56,7 +68,7 @@ const RoadmapViewColumns = ({ column }: RoadmapviewProps) => {
               </CardResume>
 
               <CardFooter>
-                <button>
+                <button onClick={() => handleUpdateUpVote(suggestion.id)}>
                   <CaretUp color="#4661e6" size={15} weight="bold" />{" "}
                   {suggestion.upVotes}
                 </button>
