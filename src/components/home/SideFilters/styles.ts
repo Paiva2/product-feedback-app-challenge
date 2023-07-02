@@ -1,4 +1,5 @@
 import { styled } from "@/styles/stitches.config"
+import { keyframes } from "@stitches/react"
 
 export const FilterContainer = styled("div", {
   alignSelf: "flex-start",
@@ -24,25 +25,44 @@ export const MenuHamburguerIconWrapper = styled("div", {
 
 export const Overlay = styled("div", {
   "@sm": {
-    position: "fixed",
-    top: 0,
-    left: 0,
+    position: "absolute",
+    w: "100%",
+    h: "100%",
+    inset: 0,
     zIndex: 100,
-    height: "100%",
-    width: "100%",
-    background: "rgba(0, 0, 0, 0.5)",
-
-    "&.active": {
-      transition: ".3s ease-in-out",
-      opacty: 1,
-      visibility: "visible",
-    },
+    background: "rgba(0, 0, 0, 0.65)",
+    transition: "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out",
+    overflow: "hidden",
 
     "&.inactive": {
-      transition: ".3s ease-in-out",
-      opacty: 0,
+      opacty: "0",
       visibility: "hidden",
     },
+
+    "&.active": {
+      opacty: "1",
+      visibility: "visible",
+    },
+  },
+})
+
+const sideMenuAnimationActive = keyframes({
+  "0%": {
+    transform: "translateX(100%)",
+  },
+
+  "100%": {
+    transform: "translateX(0%)",
+  },
+})
+
+const sideMenuAnimationInactive = keyframes({
+  "0%": {
+    transform: "translateX(0%)",
+  },
+
+  "100%": {
+    transform: "translateX(100%)",
   },
 })
 
@@ -63,23 +83,23 @@ export const AllFiltersWrapper = styled("div", {
     top: "70px",
     right: 0,
     alignItems: "center",
-    width: "75%",
-    height: "100%",
+    height: "calc(100% - 86px)",
     zIndex: "100",
     gap: "1.25rem",
     paddingTop: "1rem",
+    w: "75%",
 
     "&.inactive": {
-      transition: ".2s ease-in-out",
+      animation: `${sideMenuAnimationInactive} .3s ease-in-out forwards`,
+      transition: ".3s ease-in-out",
       visibility: "hidden",
-      transform: "translateX(100%)",
+      opacity: 0,
     },
 
     "&.active": {
       visibility: "visible",
       opacity: 1,
-      transition: ".2s ease-in-out",
-      transform: "translateX(0%)",
+      animation: `${sideMenuAnimationActive} .3s ease-in-out forwards`,
     },
   },
 })
@@ -88,7 +108,6 @@ export const FilterWrapper = styled("div", {
   display: "flex",
   flexDirection: "column",
   gap: ".9375rem",
-  position: "relative",
 
   "@media(max-width: 940px)": {
     display: "flex",

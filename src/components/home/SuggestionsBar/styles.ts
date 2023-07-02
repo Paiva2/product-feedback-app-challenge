@@ -21,7 +21,7 @@ export const Wrapper = styled("div", {
   justifyContent: "space-between",
 
   "@sm": {
-    padding: ".625rem .9375rem",
+    padding: ".625rem .5rem",
   },
 })
 
@@ -128,6 +128,10 @@ export const SortByButton = styled("button", {
   alignItems: "center",
   gap: ".3125rem",
   cursor: "pointer",
+
+  "@sm": {
+    fontSize: ".75rem",
+  },
 })
 
 export const NewFeedBackButtonWrapper = styled("div", {
@@ -149,7 +153,7 @@ export const NewFeedBackButtonWrapper = styled("div", {
     },
 
     "@sm": {
-      padding: ".625rem 1.25rem",
+      padding: ".625rem 10px",
       fontSize: ".8125rem",
     },
   },

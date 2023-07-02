@@ -40,9 +40,13 @@ export const MiddleSection = styled("div", {
   alignSelf: "flex-start",
 
   "@media(max-width: 940px)": {
-    width: "100%",
+    width: "90%",
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "center",
+  },
+
+  "@sm": {
+    w: "100%",
   },
 })
