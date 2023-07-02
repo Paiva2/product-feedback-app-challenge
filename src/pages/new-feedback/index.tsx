@@ -21,7 +21,6 @@ import { checkFormErrorsOnSubmit } from "@/utils/checkErrorsOnSubmit"
 import { handleGetInputValue } from "@/utils/handleGetInputValue"
 import { IForm } from "../../../types"
 import { GlobalContext } from "@/context/globalContext"
-import { useRouter } from "next/router"
 
 const NewFeedback = () => {
   const [categoryModalOpen, setCategoryModalOpen] = useState(false)
@@ -122,7 +121,20 @@ const NewFeedback = () => {
               >
                 {categories.map((category) => {
                   return (
-                    <li key={category} onClick={() => setSelectCategory(category)}>
+                    <li
+                      key={category}
+                      onClick={() => {
+                        setSelectCategory(category)
+
+                        handleGetInputValue(
+                          undefined,
+                          "feedbackCategory",
+                          setFormData,
+                          formData,
+                          category
+                        )
+                      }}
+                    >
                       {category}
 
                       {category === selectCategory && <CheckedIcon />}

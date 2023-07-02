@@ -178,7 +178,7 @@ const SuggestionDetail = (props: { id: string }) => {
           </div>
         </Header>
 
-        {postData && <Suggestion data={postData} />}
+        {postData && <Suggestion refetch={refetchData} data={postData} />}
 
         <MiddleSection>
           <CommentSectionWrapper>

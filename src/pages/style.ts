@@ -12,6 +12,23 @@ export const HomeContainer = styled("main", {
   "@media(max-width: 940px)": {
     flexDirection: "column",
   },
+
+  "@sm": {
+    gap: 0,
+    paddingTop: 0,
+    paddingBottom: "20px",
+  },
+})
+
+export const SuggestionsWrapper = styled("div", {
+  display: "flex",
+  gap: ".9375rem",
+  width: "100%",
+  flexDirection: "column",
+
+  "@sm": {
+    width: "90%",
+  },
 })
 
 export const MiddleSection = styled("div", {
@@ -23,7 +40,7 @@ export const MiddleSection = styled("div", {
   alignSelf: "flex-start",
 
   "@media(max-width: 940px)": {
-    width: "90%",
+    width: "100%",
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "center",

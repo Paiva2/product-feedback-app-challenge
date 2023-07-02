@@ -8,6 +8,10 @@ export const CounterContainer = styled("div", {
   alignItems: "center",
   justifyContent: "center",
   userSelect: "none",
+
+  "@sm": {
+    br: "0",
+  },
 })
 
 export const Wrapper = styled("div", {
@@ -15,6 +19,10 @@ export const Wrapper = styled("div", {
   w: "100%",
   pd: ".3125rem .9375rem",
   justifyContent: "space-between",
+
+  "@sm": {
+    padding: ".625rem .9375rem",
+  },
 })
 
 export const Suggestions = styled("span", {
@@ -33,6 +41,14 @@ export const SuggestionsController = styled("div", {
   span: {
     display: "flex",
     alignItems: "center",
+
+    "@sm": {
+      display: "none",
+    },
+  },
+
+  "@sm": {
+    width: "auto",
   },
 })
 
@@ -52,6 +68,11 @@ export const SortBy = styled("div", {
     svg: {
       transform: "rotate(180deg)",
     },
+  },
+
+  "@sm": {
+    fontSize: ".8125rem",
+    width: "auto",
   },
 })
 
@@ -125,6 +146,11 @@ export const NewFeedBackButtonWrapper = styled("div", {
 
     "&:hover": {
       backgroundColor: "#C75AF6",
+    },
+
+    "@sm": {
+      padding: ".625rem 1.25rem",
+      fontSize: ".8125rem",
     },
   },
 })

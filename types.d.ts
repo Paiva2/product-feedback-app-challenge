@@ -39,14 +39,14 @@ export interface IContext {
   setSelectedFilter: Dispatch<SetStateAction<string>>
   setDataSortedByCategory: Dispatch<SetStateAction<DataSchema[]>>
   setDataCategoryFiltered: (category: string) => void
-  filterGenerator: (filter: string, state: any, stateKey?: string) => any
+  filterGenerator: (
+    filter: string,
+    state: DataSchema[] | undefined,
+    stateKey?: string
+  ) => DataSchema[] | undefined
   handleSortCategoryFilter: (category: string) => void
   handleSortByFilter: (filter: string) => void
   refetchData: () => void
-}
-
-interface SuggestionData {
-  data: DataSchema
 }
 
 export interface IForm {

@@ -1,7 +1,7 @@
 import Head from "next/head"
 import SideFilters from "@/components/home/SideFilters"
 import { Fragment, useContext } from "react"
-import { HomeContainer, MiddleSection } from "./style"
+import { HomeContainer, MiddleSection, SuggestionsWrapper } from "./style"
 import SuggestionsBar from "@/components/home/SuggestionsBar"
 import { GlobalContext } from "@/context/globalContext"
 import { IContext } from "../../types"
@@ -9,7 +9,9 @@ import Suggestion from "@/components/home/Suggestion"
 import SuggestionNotFound from "@/components/SuggestionNotFound"
 
 export default function Home() {
-  const { dataSortedByCategory, isLoading } = useContext(GlobalContext) as IContext
+  const { dataSortedByCategory, isLoading, refetchData } = useContext(
+    GlobalContext
+  ) as IContext
 
   return (
     <Fragment>
@@ -25,10 +27,15 @@ export default function Home() {
           {isLoading && <h1>Loading...</h1>}
 
           {!dataSortedByCategory?.length && !isLoading && <SuggestionNotFound />}
-
-          {dataSortedByCategory?.map((suggestion) => (
-            <Suggestion key={suggestion.id} data={suggestion} />
-          ))}
+          <SuggestionsWrapper>
+            {dataSortedByCategory?.map((suggestion) => (
+              <Suggestion
+                refetch={refetchData}
+                key={suggestion.id}
+                data={suggestion}
+              />
+            ))}
+          </SuggestionsWrapper>
         </MiddleSection>
       </HomeContainer>
     </Fragment>

@@ -13,17 +13,93 @@ export const FilterContainer = styled("div", {
   },
 })
 
+export const MenuHamburguerIconWrapper = styled("div", {
+  display: "none",
+
+  "@sm": {
+    display: "flex",
+    paddingRight: ".9375rem",
+  },
+})
+
+export const Overlay = styled("div", {
+  "@sm": {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    zIndex: 100,
+    height: "100%",
+    width: "100%",
+    background: "rgba(0, 0, 0, 0.5)",
+
+    "&.active": {
+      transition: ".3s ease-in-out",
+      opacty: 1,
+      visibility: "visible",
+    },
+
+    "&.inactive": {
+      transition: ".3s ease-in-out",
+      opacty: 0,
+      visibility: "hidden",
+    },
+  },
+})
+
+export const AllFiltersWrapper = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+  gap: "0.9375rem",
+
+  "@media(max-width: 940px)": {
+    flexDirection: "row",
+  },
+
+  "@sm": {
+    position: "absolute",
+    backgroundColor: "#f7f8fd",
+    display: "flex",
+    flexDirection: "column",
+    top: "70px",
+    right: 0,
+    alignItems: "center",
+    width: "75%",
+    height: "100%",
+    zIndex: "100",
+    gap: "1.25rem",
+    paddingTop: "1rem",
+
+    "&.inactive": {
+      transition: ".2s ease-in-out",
+      visibility: "hidden",
+      transform: "translateX(100%)",
+    },
+
+    "&.active": {
+      visibility: "visible",
+      opacity: 1,
+      transition: ".2s ease-in-out",
+      transform: "translateX(0%)",
+    },
+  },
+})
+
 export const FilterWrapper = styled("div", {
   display: "flex",
   flexDirection: "column",
   gap: ".9375rem",
+  position: "relative",
 
   "@media(max-width: 940px)": {
     display: "flex",
     alignItems: "center",
-    width: "90%",
+    w: "90%",
     gap: ".625rem",
     flexDirection: "row",
+  },
+
+  "@sm": {
+    w: "100%",
   },
 })
 
@@ -32,6 +108,10 @@ export const GradientCardWrapper = styled("div", {
     display: "flex",
     flexDirection: "column",
     alignSelf: "flex-end",
+  },
+
+  "@sm": {
+    alignSelf: "center",
   },
 })
 
@@ -42,6 +122,7 @@ export const TopCard = styled("div", {
   br: "10px",
   padding: "4.0625rem 4.0625rem 1.5625rem 1.25rem",
   transition: ".2s ease-in-out",
+  zIndex: 2000,
 
   "&:hover": {
     opacity: ".9",
@@ -52,6 +133,18 @@ export const TopCard = styled("div", {
     minWidth: "12.5rem",
     minHeight: "7.5rem",
     pd: "2.1875rem 0px 1.5625rem 1.5625rem",
+  },
+
+  "@sm": {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    minHeight: "unset",
+    maxHeight: "unset",
+    pd: ".9375rem",
+    w: "100%",
+    h: "auto",
+    br: "0",
   },
 })
 
@@ -64,10 +157,18 @@ export const TopText = styled("p", {
         fontSize: "1.25rem",
         fontWeight: "700",
         color: "#fff",
+
+        "@sm": {
+          fontSize: "1rem",
+        },
       },
       cardDescription: {
         fontSize: ".9375rem",
         color: "hsla(0,0%,100%,.75)",
+
+        "@sm": {
+          fontSize: ".8125rem",
+        },
       },
     },
   },
@@ -97,6 +198,11 @@ export const Filters = styled("div", {
     minHeight: "7.5rem",
     maxHeight: "7.5rem",
     maxWidth: "unset",
+  },
+
+  "@sm": {
+    maxWidth: "85%",
+    maxHeight: "auto",
   },
 })
 
@@ -134,6 +240,13 @@ export const RoadmapWrapper = styled("div", {
     minHeight: "7.5rem",
     maxHeight: "7.5rem",
   },
+
+  "@sm": {
+    w: "90%",
+    maxHeight: "unset",
+    minHeight: "unset",
+    padding: "20px 0px",
+  },
 })
 
 export const RoadmapTitle = styled("div", {
@@ -150,6 +263,10 @@ export const RoadmapTitle = styled("div", {
   a: {
     fontSize: ".8125rem",
     color: "#4661e6",
+  },
+
+  "@sm": {
+    padding: "0px 15px",
   },
 })
 
@@ -180,6 +297,10 @@ export const RoadmapNamesWrapper = styled("div", {
   color: "#3a4374",
   fontSize: "1rem",
   alignItems: "center",
+
+  "@sm": {
+    padding: "0px 15px",
+  },
 })
 
 export const RoadmapNumberCount = styled("p", {

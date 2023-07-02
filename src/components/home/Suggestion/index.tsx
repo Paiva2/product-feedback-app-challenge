@@ -11,14 +11,15 @@ import {
   UpVoteButton,
 } from "./styles"
 import axios from "axios"
-import { useContext } from "react"
-import { GlobalContext } from "@/context/globalContext"
-import { IContext, SuggestionData } from "../../../../types"
+import { DataSchema } from "../../../../types"
 import { useRouter } from "next/router"
 
-const Suggestion = ({ data }: SuggestionData) => {
-  const { refetchData } = useContext(GlobalContext) as IContext
+interface Props {
+  data: DataSchema
+  refetch: () => void
+}
 
+const Suggestion = ({ data, refetch }: Props) => {
   const route = useRouter()
 
   const handleUpdateUpVote = async (suggestionId: number) => {
@@ -26,7 +27,7 @@ const Suggestion = ({ data }: SuggestionData) => {
 
     await axios.post("/api/posts", { id })
 
-    refetchData()
+    refetch()
   }
 
   const handleGoToFeedback = (id: number) => {
