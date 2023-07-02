@@ -1,13 +1,7 @@
 import Head from "next/head"
 import SideFilters from "@/components/home/SideFilters"
 import { Fragment, useContext } from "react"
-import {
-  HomeContainer,
-  Loader,
-  LoaderOverlay,
-  MiddleSection,
-  SuggestionsWrapper,
-} from "./style"
+import { HomeContainer, MiddleSection, SuggestionsWrapper } from "./style"
 import SuggestionsBar from "@/components/home/SuggestionsBar"
 import { GlobalContext } from "@/context/globalContext"
 import { IContext } from "../../types"

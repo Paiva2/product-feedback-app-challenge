@@ -15,6 +15,7 @@ import { useRouter } from "next/router"
 import CheckedIcon from "@/components/icons/CheckedIcon"
 import { GlobalContext } from "@/context/globalContext"
 import { IContext } from "../../../../types"
+import LoadingComponent from "@/components/LoadingComponent"
 
 const SuggestionsBar = () => {
   const [openSortBy, setOpenSortBy] = useState(false)
@@ -36,7 +37,7 @@ const SuggestionsBar = () => {
 
   const route = useRouter()
 
-  if (isLoading) return <></>
+  if (isLoading) return <LoadingComponent />
 
   return (
     <CounterContainer>

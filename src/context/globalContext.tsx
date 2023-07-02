@@ -13,11 +13,9 @@ const GlobalStorage = ({ children }: Props) => {
   const [dataCategoryFiltered, setDataCategoryFiltered] = useState("All")
   const [selectedFilter, setSelectedFilter] = useState("Most Upvotes")
 
-  const isLoading = true
-
   const {
     data: suggestionsData,
-    /* isLoading, */
+    isLoading,
     refetch: refetchData,
   } = useQuery<DataSchema[]>("suggestions", getSuggestions, {
     refetchOnWindowFocus: false,

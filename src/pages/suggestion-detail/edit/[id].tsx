@@ -1,6 +1,5 @@
 import React, { FormEvent, useContext, useEffect, useRef, useState } from "react"
 import { CaretDown, CaretLeft } from "phosphor-react"
-import Link from "next/link"
 import {
   DropdownButton,
   CategoryDropDownMenu,
@@ -27,6 +26,7 @@ import { GlobalContext } from "@/context/globalContext"
 import { GetServerSideProps } from "next"
 import { ParsedUrlQuery } from "querystring"
 import { useRouter } from "next/router"
+import LoadingComponent from "@/components/LoadingComponent"
 
 const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
   const { refetchData, isLoading } = useContext(GlobalContext)
@@ -127,7 +127,7 @@ const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
     }
   }
 
-  if (isLoading) return <></>
+  /* if (isLoading) return <LoadingComponent /> */
 
   return (
     <EditFeedbackContainer>

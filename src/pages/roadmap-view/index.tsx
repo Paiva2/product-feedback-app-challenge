@@ -17,6 +17,7 @@ import { useRouter } from "next/router"
 import { GlobalContext } from "@/context/globalContext"
 import { useIsMobile } from "../../../hooks/useIsMobile"
 import RoadmapViewColumns from "@/components/RoadmapViewColumns"
+import LoadingComponent from "@/components/LoadingComponent"
 
 const RoadmapView = () => {
   const { suggestionsData, isLoading, filterGenerator } = useContext(GlobalContext)
@@ -50,7 +51,7 @@ const RoadmapView = () => {
     },
   ]
 
-  if (isLoading) return <></>
+  if (isLoading) return <LoadingComponent />
 
   return (
     <RoadmapContainer>

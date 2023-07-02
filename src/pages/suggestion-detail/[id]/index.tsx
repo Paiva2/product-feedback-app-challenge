@@ -32,6 +32,7 @@ import { DataSchema } from "../../../../types"
 import { ParsedUrlQuery } from "querystring"
 import { useQuery } from "react-query"
 import { useRouter } from "next/router"
+import LoadingComponent from "@/components/LoadingComponent"
 
 interface DynamicStateValues {
   [key: string]: { value: string }
@@ -161,7 +162,7 @@ const SuggestionDetail = (props: { id: string }) => {
     })
   }
 
-  if (isLoading) return <></>
+  if (isLoading) return <LoadingComponent />
 
   return (
     <CommentsContainer>

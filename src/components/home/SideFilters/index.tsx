@@ -23,6 +23,7 @@ import { GlobalContext } from "@/context/globalContext"
 import { IContext } from "../../../../types"
 import ClosedMenuHamburguer from "@/components/icons/ClosedMenuHamburguer"
 import XIcon from "@/components/icons/XIcon"
+import LoadingComponent from "@/components/LoadingComponent"
 
 const SideFilters = () => {
   const filters = ["All", "UI", "Enhancement", "Feature", "Bug"]
@@ -52,7 +53,7 @@ const SideFilters = () => {
     }
   })
 
-  if (isLoading) return <></>
+  if (isLoading) return <LoadingComponent />
 
   return (
     <FilterContainer>

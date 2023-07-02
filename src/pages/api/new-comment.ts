@@ -15,10 +15,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (post) {
     await prisma.comment.create({
       data: {
-        name: "paiva",
-        username: "@paiva",
+        name: "Random User",
+        username: `@randomusername${Math.floor(Math.random() * 9000) + 1000}`,
         iconImage:
-          "https://i.postimg.cc/cC3ZKyyP/052c177ea1956fbd4b22c9ee508ee67a.jpg",
+          "https://i.postimg.cc/mD8C6kTc/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg",
         description: req.body.comment,
         postsId: post.id,
       },
