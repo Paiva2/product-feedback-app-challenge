@@ -29,7 +29,7 @@ import { useRouter } from "next/router"
 import LoadingComponent from "@/components/LoadingComponent"
 
 const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
-  const { refetchData, isLoading } = useContext(GlobalContext)
+  const { isLoading } = useContext(GlobalContext)
 
   const router = useRouter()
 
@@ -95,13 +95,11 @@ const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
         try {
           const response = await axios.post(`/api/posts/${props.id}`, formData)
 
-          alertMessage("success", response.data.message)
+          await router.replace(router.asPath)
 
-          router.replace(router.asPath)
+          alertMessage("success", response.data.message)
         } catch (e) {
           console.warn(e)
-        } finally {
-          refetchData()
         }
         break
 
@@ -113,13 +111,13 @@ const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
         try {
           const response = await axios.delete(`/api/posts/${props.id}`)
 
-          await router.push("/")
-
           alertMessage("success", response.data.message)
+
+          await router.replace(router.asPath)
+
+          router.push("/")
         } catch (e) {
           console.log(e)
-        } finally {
-          refetchData()
         }
         break
 

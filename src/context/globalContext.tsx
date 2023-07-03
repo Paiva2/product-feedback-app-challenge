@@ -12,14 +12,13 @@ export const GlobalContext = createContext<IContext>({} as any)
 const GlobalStorage = ({ children }: Props) => {
   const [dataCategoryFiltered, setDataCategoryFiltered] = useState("All")
   const [selectedFilter, setSelectedFilter] = useState("Most Upvotes")
-  const [selectCategory, setSelectCategory] = useState("Feature")
 
   const {
     data: suggestionsData,
     isLoading,
     refetch: refetchData,
   } = useQuery<DataSchema[]>("suggestions", getSuggestions, {
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
   })
 
   const [dataSortedByCategory, setDataSortedByCategory] = useState<

@@ -14,10 +14,6 @@ export default function Home() {
     GlobalContext
   ) as IContext
 
-  useEffect(() => {
-    refetchData()
-  }, [])
-
   if (isLoading) return <LoadingComponent />
 
   return (
