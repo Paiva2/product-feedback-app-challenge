@@ -98,10 +98,10 @@ const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
           alertMessage("success", response.data.message)
 
           router.replace(router.asPath)
-
-          refetchData()
         } catch (e) {
           console.warn(e)
+        } finally {
+          refetchData()
         }
         break
 
@@ -115,10 +115,11 @@ const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
 
           await router.push("/")
 
-          refetchData()
           alertMessage("success", response.data.message)
         } catch (e) {
           console.log(e)
+        } finally {
+          refetchData()
         }
         break
 
