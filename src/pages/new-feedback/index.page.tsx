@@ -1,7 +1,6 @@
 import PlusIcon from "@/components/icons/PlusIcon"
 import React, { FormEvent, useContext, useEffect, useRef, useState } from "react"
 import { CaretDown, CaretLeft } from "phosphor-react"
-import Link from "next/link"
 import {
   CategoryButton,
   CategoryDropDownMenu,

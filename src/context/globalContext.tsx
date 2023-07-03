@@ -12,6 +12,7 @@ export const GlobalContext = createContext<IContext>({} as any)
 const GlobalStorage = ({ children }: Props) => {
   const [dataCategoryFiltered, setDataCategoryFiltered] = useState("All")
   const [selectedFilter, setSelectedFilter] = useState("Most Upvotes")
+  const [selectCategory, setSelectCategory] = useState("Feature")
 
   const {
     data: suggestionsData,
@@ -113,7 +114,7 @@ const GlobalStorage = ({ children }: Props) => {
       error: false,
     },
     feedbackCategory: {
-      text: "",
+      text: "Feature",
       error: false,
     },
   }

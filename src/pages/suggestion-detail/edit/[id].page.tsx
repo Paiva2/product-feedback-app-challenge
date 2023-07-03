@@ -113,9 +113,9 @@ const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
         try {
           const response = await axios.delete(`/api/posts/${props.id}`)
 
-          refetchData()
+          await router.push("/")
 
-          router.push("/")
+          refetchData()
           alertMessage("success", response.data.message)
         } catch (e) {
           console.log(e)
