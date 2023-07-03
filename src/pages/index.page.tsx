@@ -1,6 +1,6 @@
 import Head from "next/head"
 import SideFilters from "@/components/home/SideFilters"
-import { Fragment, useContext } from "react"
+import { Fragment, useContext, useEffect } from "react"
 import { HomeContainer, MiddleSection, SuggestionsWrapper } from "./style"
 import SuggestionsBar from "@/components/home/SuggestionsBar"
 import { GlobalContext } from "@/context/globalContext"
@@ -13,6 +13,10 @@ export default function Home() {
   const { dataSortedByCategory, isLoading, refetchData } = useContext(
     GlobalContext
   ) as IContext
+
+  useEffect(() => {
+    refetchData()
+  }, [])
 
   if (isLoading) return <LoadingComponent />
 
