@@ -127,7 +127,7 @@ const ManageFeedback = (props: { id: string; data: PostSectionData }) => {
     }
   }
 
-  /* if (isLoading) return <LoadingComponent /> */
+  if (isLoading) return <LoadingComponent />
 
   return (
     <EditFeedbackContainer>
@@ -301,7 +301,9 @@ interface Params extends ParsedUrlQuery {
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { id } = params as Params
 
-  const { data } = await axios.get(`http://localhost:3000/api/posts/${id}`)
+  const { data } = await axios.get(
+    `https://product-feedback-app-challenge.vercel.app/api/posts/${id}`
+  )
 
   return { props: { id, data } }
 }
