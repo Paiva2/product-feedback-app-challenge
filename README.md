@@ -2,9 +2,9 @@
 
 This is a completion of the [Frontend Mentors](https://frontendmentors.io) "Product Feedback" challenge.
 
-Live Demo [Vercel]()
+## [Live Demo](https://product-feedback-app-challenge.vercel.app/)
 
-## [Demo Video](https://www.loom.com/share/b9dd762f76c84efd98bc1bab7713a8ce?sid=4cd042f2-f2ed-43ed-9f3d-93397a7f2330)
+## [Demo video](https://www.loom.com/share/b9dd762f76c84efd98bc1bab7713a8ce?sid=4cd042f2-f2ed-43ed-9f3d-93397a7f2330)
 
 [Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects. These premium challenges are perfect portfolio pieces, so please feel free to use what you create in your portfolio to show others.
 
